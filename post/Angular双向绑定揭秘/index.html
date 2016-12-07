@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>AngularJS数据双向绑定揭秘 - 前端天地</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="A material design theme for documentations.">
+    
+    <link rel="canonical" href="https://satisfied1.github.io/post/Angular%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%8F%AD%E7%A7%98/">
+    
+    <meta name="author" content="satisfied">
+    
+
+    <meta property="og:url" content="https://satisfied1.github.io/post/Angular%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%8F%AD%E7%A7%98/">
+    <meta property="og:title" content="前端天地">
+    <meta property="og:image" content="https://satisfied1.github.ioimages/logo.png">
+    <meta name="apple-mobile-web-app-title" content="前端天地">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://satisfied1.github.ioimages/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://satisfied1.github.ioimages/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://satisfied1.github.iofonts/icon.eot?52m981');
+        src: url('https://satisfied1.github.iofonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://satisfied1.github.iofonts/icon.woff?52m981')
+               format('woff'),
+             url('https://satisfied1.github.iofonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://satisfied1.github.iofonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://satisfied1.github.iostylesheets/application.css">
+    <link rel="stylesheet" href="https://satisfied1.github.iostylesheets/temporary.css">
+    <link rel="stylesheet" href="https://satisfied1.github.iostylesheets/palettes.css">
+    <link rel="stylesheet" href="https://satisfied1.github.iostylesheets/highlight/highlight.css">
+
+    
+    
+    
+    
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://satisfied1.github.iojavascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        AngularJS数据双向绑定揭秘
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/Satisfied1" title="@Satisfied1 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/Satisfied1/Satisfied1.github.io" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://satisfied1.github.ioimages/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>前端天地 <span class="version">1.0.0</span></strong>
+        
+          <br>
+          Satisfied1/Satisfied1.github.io
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="首页" href="https://Satisfied1.github.io/">
+	
+	首页
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+        <ul id="all-tags">
+          
+            <li><a href="https://Satisfied1.github.io/tags/angularjs">angularjs</a></li>
+          
+            <li><a href="https://Satisfied1.github.io/tags/html5">html5</a></li>
+          
+        </ul>
+
+        
+        <hr>
+        <span class="section">作者</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/Satisfied1" target="_blank" title="@Satisfied1 on GitHub">
+              @Satisfied1 on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:13262631093@163.com" title="Email of 13262631093@163.com">
+              联系我
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>AngularJS数据双向绑定揭秘 </h1>
+
+			<p>AngularJS在$scope变量中使用脏值检查来实现了数据双向绑定。和Ember.js数据双向绑定中动态设施setter和getter不同，脏治检查允许AngularJS监视那些存在或者不存在的变量。</p>
+
+<p>$scope.$watch</p>
+
+<p>$scope.$watch( watchExp, listener, objectEquality );
+为了监视一个变量的变化，你可以使用$scope.$watch函数。这个函数有三个参数，它指明了”要观察什么”(watchExp)，”在变化时要发生什么”(listener),以及你要监视的是一个变量还是一个对象。当我们在检查一个参数时，我们可以忽略第三个参数。例如下面的例子：</p>
+
+<p>$scope.name = &lsquo;Ryan&rsquo;;</p>
+
+<p>$scope.$watch( function( ) {
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(&lsquo;$scope.name was updated!&rsquo;);
+} );
+AngularJS将会在$scope中注册你的监视函数。你可以在控制台中输出$scope来查看$scope中的注册项目。</p>
+
+<p>你可以在控制台中看到$scope.name已经发生了变化 – 这是因为$scope.name之前的值似乎undefined而现在我们将它赋值为Ryan!</p>
+
+<p>对于$wach的第一个参数，你也可以使用一个字符串。这和提供一个函数完全一样。在AngularJS的源代码中可以看到，如果你使用了一个字符串，将会运行下面的代码：</p>
+
+<p>if (typeof watchExp == &lsquo;string&rsquo; &amp;&amp; get.constant) {
+  var originalFn = watcher.fn;
+  watcher.fn = function(newVal, oldVal, scope) {
+    originalFn.call(this, newVal, oldVal, scope);
+    arrayRemove(array, watcher);
+  };
+}
+这将会把我们的watchExp设置为一个函数，它也自动返回作用域中我们已经制定了名字的变量。</p>
+
+<p>$$watchers</p>
+
+<p>$scope中的$$watchers变量保存着我们定义的所有的监视器。如果你在控制台中查看$$watchers，你会发现它是一个对象数组。</p>
+
+<p>$$watchers = [
+    {
+        eq: false, // 表明我们是否需要检查对象级别的相等
+        fn: function( newValue, oldValue ) {}, // 这是我们提供的监听器函数
+        last: &lsquo;Ryan&rsquo;, // 变量的最新值
+        exp: function(){}, // 我们提供的watchExp函数
+        get: function(){} // Angular&rsquo;s编译后的watchExp函数
+    }
+];
+$watch函数将会返回一个deregisterWatch函数。这意味着如果我们使用$scope.$watch对一个变量进行监视，我们也可以在以后通过调用某个函数来停止监视。</p>
+
+<p>$scope.$apply</p>
+
+<p>当一个控制器/指令/等等东西在AngularJS中运行时，AngularJS内部会运行一个叫做$scope.$apply的函数。这个$apply函数会接收一个函数作为参数并运行它，在这之后才会在rootScope上运行$digest函数。</p>
+
+<p>AngularJS的$apply函数代码如下所示：</p>
+
+<p>$apply: function(expr) {
+    try {
+      beginPhase(&lsquo;$apply&rsquo;);
+      return this.$eval(expr);
+    } catch (e) {
+      $exceptionHandler(e);
+    } finally {
+      clearPhase();
+      try {
+        $rootScope.$digest();
+      } catch (e) {
+        $exceptionHandler(e);
+        throw e;
+      }
+    }
+}
+上面代码中的expr参数就是你在调用$scope.$apply()时传递的参数 – 但是大多数时候你可能都不会去使用$apply这个函数，要用的时候记得给它传递一个参数。</p>
+
+<p>下面我们来看看ng-keydown是怎么来使用$scope.$apply的。为了注册这个指令，AngularJS会使用下面的代码。</p>
+
+<p>var ngEventDirectives = {};
+forEach(
+  &lsquo;click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste&rsquo;.split(&rsquo; &lsquo;),
+  function(name) {
+    var directiveName = directiveNormalize(&lsquo;ng-&rsquo; + name);
+    ngEventDirectives[directiveName] = [&lsquo;$parse&rsquo;, function($parse) {
+      return {
+        compile: function($element, attr) {
+          var fn = $parse(attr[directiveName]);
+          return function ngEventHandler(scope, element) {
+            element.on(lowercase(name), function(event) {
+              scope.$apply(function() {
+                fn(scope, {$event:event});
+              });
+            });
+          };
+        }
+      };
+    }];
+  }
+);
+上面的代码做的事情是循环了不同的类型的事件，这些事件在之后可能会被触发并创建一个叫做ng-[某个事件]的新指令。在指令的compile函数中，它在元素上注册了一个事件处理器，它和指令的名字一一对应。当事件被出发时，AngularJS就会运行scope.$apply函数，并让它运行一个函数。</p>
+
+<p>只是单向数据绑定吗？</p>
+
+<p>上面所说的ng-keydown只能够改变和元素值相关联的$scope中的值 – 这只是单项数据绑定。这也是这个指令叫做ng-keydown的原因，只有在keydown事件被触发时，能够给与我们一个新值。</p>
+
+<p>但是我们想要的是双向数据绑定！</p>
+
+<p>我们现在来看一看ng-model。当你在使用ng-model时，你可以使用双向数据绑定 – 这正是我们想要的。AngularJS使用$scope.$watch（视图到模型）以及$scope.$apply（模型到视图）来实现这个功能。</p>
+
+<p>ng-model会把事件处理指令(例如keydown)绑定到我们运用的输入元素上 – 这就是$scope.$apply被调用的地方！而$scope.$watch是在指令的控制器中被调用的。你可以在下面代码中看到这一点：</p>
+
+<p>$scope.$watch(function ngModelWatch() {
+    var value = ngModelGet($scope);</p>
+
+<pre><code>//如果作用域模型值和ngModel值没有同步
+if (ctrl.$modelValue !== value) {
+
+    var formatters = ctrl.$formatters,
+        idx = formatters.length;
+
+    ctrl.$modelValue = value;
+    while(idx--) {
+        value = formatters[idx](value);
+    }
+
+    if (ctrl.$viewValue !== value) {
+        ctrl.$viewValue = value;
+        ctrl.$render();
+    }
+}
+
+return value;
+</code></pre>
+
+<p>});
+如果你在调用$scope.$watch时只为它传递了一个参数，无论作用域中的什么东西发生了变化，这个函数都会被调用。在ng-model中，这个函数被用来检查模型和视图有没有同步，如果没有同步，它将会使用新值来更新模型数据。这个函数会返回一个新值，当它在$digest函数中运行时，我们就会知道这个值是什么！</p>
+
+<p>为什么我们的监听器没有被触发？</p>
+
+<p>如果我们在$scope.$watch的监听器函数中停止这个监听，即使我们更新了$scope.name，该监听器也不会被触发。</p>
+
+<p>正如前面所提到的，AngularJS将会在每一个指令的控制器函数中运行$scope.$apply。如果我们查看$scope.$apply函数的代码，我们会发现它只会在控制器函数已经开始被调用之后才会运行$digest函数 – 这意味着如果我们马上停止监听，$scope.$watch函数甚至都不会被调用！但是它究竟是怎样运行的呢？</p>
+
+<p>$digest函数将会在$rootScope中被$scope.$apply所调用。它将会在$rootScope中运行digest循环，然后向下遍历每一个作用域并在每个作用域上运行循环。在简单的情形中，digest循环将会触发所有位于$$watchers变量中的所有watchExp函数，将它们和最新的值进行对比，如果值不相同，就会触发监听器。</p>
+
+<p>当digest循环运行时，它将会遍历所有的监听器然后再次循环，只要这次循环发现了”脏值”，循环就会继续下去。如果watchExp的值和最新的值不相同，那么这次循环就会被认为发现了脏值。理想情况下它会运行一次，如果它运行超10次，你会看到一个错误。</p>
+
+<p>因此当$scope.$apply运行的时候，$digest也会运行，它将会循环遍历$$watchers，只要发现watchExp和最新的值不相等，变化触发事件监听器。在AngularJS中，只要一个模型的值可能发生变化，$scope.$apply就会运行。这就是为什么当你在AngularJS之外更新$scope时，例如在一个setTimeout函数中，你需要手动去运行$scope.$apply()：这能够让AngularJS意识到它的作用域发生了变化。</p>
+
+<p>创建自己的脏值检查</p>
+
+<p>到此为止，我们已经可以来创建一个小巧的，简化版本的脏值检查了。当然，相比较之下，AngularJS中实现的脏值检查要更加先进一些，它提供疯了异步队列以及其他一些高级功能。</p>
+
+<p>设置Scope</p>
+
+<p>Scope仅仅只是一个函数，它其中包含任何我们想要存储的对象。我们可以扩展这个函数的原型对象来复制$digest和$watch。我们不需要$apply方法，因为我们不需要在作用域的上下文中执行任何函数 – 我们只需要简单的使用$digest。我们的Scope的代码如下所示：</p>
+
+<p>var Scope = function( ) {
+    this.$$watchers = [];<br />
+};</p>
+
+<p>Scope.prototype.$watch = function( ) {</p>
+
+<p>};</p>
+
+<p>Scope.prototype.$digest = function( ) {</p>
+
+<p>};
+我们的$watch函数需要接受两个参数，watchExp和listener。当$watch被调用时，我们需要将它们push进入到Scope的$$watcher数组中。</p>
+
+<p>var Scope = function( ) {
+    this.$$watchers = [];<br />
+};</p>
+
+<p>Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};</p>
+
+<p>Scope.prototype.$digest = function( ) {</p>
+
+<p>};
+你可能已经注意到了，如果没有提供listener，我们会将listener设置为一个空函数 – 这样一来我们可以$watch所有的变量。</p>
+
+<p>接下来我们将会创建$digest。我们需要来检查旧值是否等于新的值，如果二者不相等，监听器就会被触发。我们会一直循环这个过程，直到二者相等。这就是”脏值”的来源 – 脏值意味着新的值和旧的值不相等！</p>
+
+<p>var Scope = function( ) {
+    this.$$watchers = [];<br />
+};</p>
+
+<p>Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};</p>
+
+<p>Scope.prototype.$digest = function( ) {
+    var dirty;</p>
+
+<pre><code>do {
+        dirty = false;
+
+        for( var i = 0; i &lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+</code></pre>
+
+<p>};
+接下来，我们将创建一个作用域的实例。我们将这个实例赋值给$scope。我们接着会注册一个监听函数，在更新$scope之后运行$digest！</p>
+
+<p>var Scope = function( ) {
+    this.$$watchers = [];<br />
+};</p>
+
+<p>Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};</p>
+
+<p>Scope.prototype.$digest = function( ) {
+    var dirty;</p>
+
+<pre><code>do {
+        dirty = false;
+
+        for( var i = 0; i &lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+</code></pre>
+
+<p>};</p>
+
+<p>var $scope = new Scope();</p>
+
+<p>$scope.name = &lsquo;Ryan&rsquo;;</p>
+
+<p>$scope.$watch(function(){
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(newValue, oldValue);
+} );</p>
+
+<p>$scope.$digest();
+成功了！我们现在已经实现了脏值检查(虽然这是最简单的形式)！上述代码将会在控制台中输出下面的内容：</p>
+
+<p>Ryan undefined
+这正是我们想要的结果 – $scope.name之前的值是undefined，而现在的值是Ryan。</p>
+
+<p>现在我们把$digest函数绑定到一个input元素的keyup事件上。这就意味着我们不需要自己去调用$digest。这也意味着我们现在可以实现双向数据绑定！</p>
+
+<p>var Scope = function( ) {
+    this.$$watchers = [];<br />
+};</p>
+
+<p>Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};</p>
+
+<p>Scope.prototype.$digest = function( ) {
+    var dirty;</p>
+
+<pre><code>do {
+        dirty = false;
+
+        for( var i = 0; i &lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+</code></pre>
+
+<p>};</p>
+
+<p>var $scope = new Scope();</p>
+
+<p>$scope.name = &lsquo;Ryan&rsquo;;</p>
+
+<p>var element = document.querySelectorAll(&lsquo;input&rsquo;);</p>
+
+<p>element[0].onkeyup = function() {
+    $scope.name = element[0].value;</p>
+
+<pre><code>$scope.$digest();
+</code></pre>
+
+<p>};</p>
+
+<p>$scope.$watch(function(){
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(&lsquo;Input value updated - it is now &rsquo; + newValue);</p>
+
+<pre><code>element[0].value = $scope.name;
+</code></pre>
+
+<p>} );</p>
+
+<p>var updateScopeValue = function updateScopeValue( ) {
+    $scope.name = &lsquo;Bob&rsquo;;
+    $scope.$digest();
+};
+使用上面的代码，无论何时我们改变了input的值，$scope中的name属性都会相应的发生变化。这就是隐藏在AngularJS神秘外衣之下数据双向绑定的秘密！</p>
+
+<p><a href="http://ryanclark.me/how-angularjs-implements-dirty-checking">原文地址</a></p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://satisfied1.github.io/post/AngularJSvsReact/" title="AngularJS vs. React">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              AngularJS vs. React
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/satisfied1.github.io';
+      var repo_id  = 'Satisfied1\/Satisfied1.github.io';
+    
+    </script>
+
+    <script src="https://satisfied1.github.iojavascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

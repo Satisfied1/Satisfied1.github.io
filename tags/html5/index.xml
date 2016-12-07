@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端天地</title>
+    <link>https://Satisfied1.github.io/tags/html5/index.xml</link>
+    <description>Recent content on 前端天地</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the MIT license</copyright>
+    <atom:link href="https://Satisfied1.github.io/tags/html5/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>rem布局</title>
+      <link>https://satisfied1.github.io/post/rem/</link>
+      <pubDate>Wed, 07 Dec 2016 15:55:36 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/rem/</guid>
+      <description>&lt;p&gt;rem布局优点：等比例放大
+rem布局缺点：大屏幕手机上看到元素还是一样多，违反设计原则&lt;/p&gt;
+
+&lt;p&gt;rem布局实现方式：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;设计时 按照font-size:20px; 算出了所有的rem。
+（可以设置成100，这样计算起来更方便）&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;动态的计算出html font-size事件(document.documentElement.clientWidth /设计稿宽度)*20px;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;对于文字大小的处理 设置成px值&lt;/p&gt;
+
+&lt;p&gt;响应式设计
+小于400px  14px;
+大于400px小于600px  16px;
+大于600px   18px;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;字体样式：用手机默认字体&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;需要用CSS预编译实现rem布局
+rem.scss中
+$font-size:20;&lt;/p&gt;
+
+&lt;p&gt;@function px2rem($px){
+     @return $px / $font-size * 1rem;
+}
+index.scss中
+@import &amp;ldquo;rem&amp;rdquo;;
+div{
+     width: px2rem(100);
+)
+index.html的head中
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1.0,user-scalable=no&#34;&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#39;lib/jquery.min.js&#39;&gt;&lt;/script&gt;//先引入jquery，否则下面的js代码用原生写
+&lt;script type=&#34;text/javascript&#34;&gt;
+           $(&amp;rdquo;[name=&amp;lsquo;viewport&amp;rsquo;]&amp;ldquo;).attr(&amp;ldquo;content&amp;rdquo;,&amp;ldquo;width=device-width,initial-scale=&amp;rdquo;+1/window.devicePixelRatio+&amp;ldquo;,user-scalable=no&amp;rdquo;);
+          // 可布局的宽度 =  物理分辨率/window.devicePixelRatio/initial-scale
+          //此处initial-scale设置会使可布局宽度=物理分辨率，可以根据设计稿大小直接写样式，更方便开发
+&lt;/script&gt;
+index.js中，根据屏幕宽度自动按比例更改字体大小
+(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var docEl = document.documentElement;
+var resizeEvt = &#39;orientation&#39; in window ? &#39;orientationchange&#39; : &#39;resize&#39;;
+
+// 在手机端有window.orientation属性,当前设备的屏幕方向，0表示竖屏，正负90表示横屏（向左与向右）模式
+var recalc = function() {
+        var clientWidth = docEl.clientWidth;
+
+        if (!clientWidth) return;
+        //20 ，是scss 定义的变量 就是计算rem的基准
+        // 640 是设计图的宽度。
+        docEl.style.fontSize = 20 * clientWidth / 640 + &#39;px&#39;;
+};
+
+if (!document.addEventListener) return;
+window.addEventListener(resizeEvt, recalc, false);
+
+//dom 节点加载完成后就会执行回调函数 DOMContentLoaded
+//(img 图片 ，script加载完后 ， dom节点创建完 css，)window.onload
+//$(function (){}) == $(document).ready(function(){})页面加载完(dom节点加载完)之后，就会执行这个参数function
+document.addEventListener(&#39;DOMContentLoaded&#39;, recalc, false);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;})();&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>H5本地存储</title>
+      <link>https://satisfied1.github.io/post/storage/</link>
+      <pubDate>Wed, 07 Dec 2016 15:54:17 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/storage/</guid>
+      <description>&lt;p&gt;cookie的特点
+- cookies 的大小限制在4KB
+- cookies 是随HTTP 请求一起被发送的，因此会浪费一部分带宽
+- 正确的操纵cookies 是很困难的
+cookie用户凭证&lt;/p&gt;
+
+&lt;p&gt;storage的特点
+- 存储量限制 ( 5M )
+- 客户端完成，不会请求服务器处理
+- sessionStorage,localStorage&lt;/p&gt;
+
+&lt;p&gt;storage API
+     sessionStorage(会话存储)
+          - session临时回话，从页面打开到页面关闭的时间段
+          - 窗口的临时存储，页面关闭，本地存储消失
+     localStorage
+          - 永久存储（可以手动删除数据）
+- setItem()
+- 设置数据，key\value类型，类型都是字符串
+- 可以用获取属性的形式操作
+- getItem()
+- 获取数据，通过key来获取到相应的value
+- removeItem()
+- 删除数据，通过key来删除相应的value
+- clear():
+- 删除全部存储的值
+          &lt;h1&gt;localStorage&lt;/h1&gt;
+          &lt;input type=&#34;text&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;存&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;取&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;删&#34;&gt;
+          &lt;iframe src=&#34;http://www.baidu.com&#34;&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      &amp;lt;script&amp;gt;
+          var aInput = document.getElementsByTagName(&#39;input&#39;);
+
+          aInput[1].onclick = function() {
+               window.localStorage.setItem(&#39;name&#39;, aInput[0].value);
+               window.localStorage.setItem(&#39;age&#39;, 30);
+          };
+          aInput[2].onclick = function() {
+               alert(window.localStorage.getItem(&#39;name&#39;));
+          };
+          aInput[3].onclick = function() {
+               //window.localStorage.removeItem(&#39;name&#39;);
+               window.localStorage.clear(); //删除所有的stroge
+          };
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;存储事件（storage事件）
+- 当数据有修改或删除的情况下，就会触发storage事件
+- 在对数据进行改变的窗口对象上是不会触发的，其他页面会触发
+- Key : 修改或删除的key值，如果调用clear(),key为null
+- oldValue :  原来设置的值
+- newValue : 新设置的值，如果调用removeStorage(),key为null
+- url : 触发该脚本变化的文档的url
+          &lt;h1&gt;storage 事件&lt;/h1&gt;
+          &lt;input type=&#34;text&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;存&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;取&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;删&#34;&gt;
+          &lt;script&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var aInput = document.getElementsByTagName(&#39;input&#39;);
+
+          aInput[1].onclick = function() {
+               window.localStorage.setItem(&#39;name&#39;, aInput[0].value);
+          };
+          aInput[2].onclick = function() {
+               alert(window.localStorage.getItem(&#39;name&#39;));
+          };
+          aInput[3].onclick = function() {
+               window.localStorage.removeItem(&#39;name&#39;);
+          };
+          //当数据有修改或删除的情况下，就会触发storage事件
+          //在对数据进行改变的窗口对象上是不会触发的
+          window.addEventListener(&#39;storage&#39;, function(ev) {
+               console.log(ev.key);
+               console.log(ev.oldValue);
+               console.log(ev.newValue);
+               console.log(ev.storageArea);
+               console.log(ev.url);
+               alert(&amp;quot;已经修改storage&amp;quot;);
+          }, false);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;应用缓存
+什么是应用程序缓存（Application Cache）？
+HTML5 引入了应用程序缓存，这意味着 web 应用可进行缓存，并可在没有因特网连接时进行访问。
+应用程序缓存为应用带来三个优势：
+     离线浏览 - 用户可在应用离线时使用它们
+     速度 - 已缓存资源加载得更快
+     减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源。
+浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。
+说明：
+&lt;a href=&#34;http://www.w3school.com.cn/html5/html_5_app_cache.asp&#34;&gt;http://www.w3school.com.cn/html5/html_5_app_cache.asp&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>canvas</title>
+      <link>https://satisfied1.github.io/post/canvas/</link>
+      <pubDate>Wed, 07 Dec 2016 15:53:28 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/canvas/</guid>
+      <description>&lt;p&gt;canvas标签
+（1）这个 HTML 元素是为了客户端矢量图形而设计的。它自己没有行为，但却把一个绘图 API 展现给客户端JavaScript 以使脚本能够把想绘制的东西都绘制到一块画布上。
+（2）要从同一图形的一个 &lt;canvas&gt; 标记中移除元素，往往需要擦掉绘图重新绘制它。
+          &lt;canvas id=&#34;c1&#34; width=&#34;400&#34; height=&#34;400&#34;&gt;
+              你的浏览器不支持！
+          &lt;!--默认有宽高 : width:300 height:150 。
+          canvas的正确设置宽高 :属性 width=&#34;400&#34; height=&#34;400&#34; --&gt;
+          &lt;/canvas&gt;&lt;/p&gt;
+
+&lt;p&gt;绘制方块
+获取绘制环境的方法      getContext(&amp;ldquo;2d&amp;rdquo;)
+fillRect(L,T,W,H)
+默认颜色是黑色      填充
+strokeRect(L,T,W,H)
+带边框的方块      默认一像素黑色边框
+          &lt;script&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var oC = document.getElementById(&amp;quot;c1&amp;quot;);
+
+          //获取绘制2d 图像的环境。
+          var oCanvas = oC.getContext(&amp;quot;2d&amp;quot;);
+
+
+          oCanvas.fillRect(100,100,100,100);
+
+          //左边距 上边距  ，矩形宽 和高。
+          oCanvas.strokeRect(100,250,100,100);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;设置绘图
+fillStyle  :  填充颜色
+lineWidth  :  线宽度，是一个数值
+strokeStyle : 边线颜色
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          oGC.fillStyle = &#39;yellow&#39;;
+          oGC.fillRect(100,100,200,100);
+
+          oGC.strokeStyle = &#39;blue&#39;;
+          oGC.lineWidth = 10;
+          oGC.strokeRect(100,250,100,100);
+
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;边界绘制
+lineJoin:边界连接点样式     miter(默认) 、round(圆角)、bevel(斜角)
+绘制线的图形，而不是填充的图形&lt;/p&gt;
+
+&lt;p&gt;绘制路径
+beginPath :  开始绘制路径
+closePath  :  结束绘制路径（自动闭合相关路径） closePath()要在stroke 前调用
+moveTo  :  确定绘制的起始点
+lineTo  :  绘制路径到新的目标点
+stroke  :  画线，默认黑色&lt;br /&gt;
+fill  :  填充，默认黑色
+clearRect  :   清除一个画布的矩形区域
+              oGC.beginPath(); //开始绘制路径
+              oGC.moveTo(100,100);  //设置一个初始点
+              oGC.lineTo(200,200); //下一个目标点
+              oGC.lineTo(200,300); //
+              oGC.closePath();
+              oGC.fill();  //填充颜色&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          oGC.beginPath();     //如果不新开这个路径，那么会将所有点连接起来
+          oGC.moveTo(300,300);
+          oGC.lineTo(300,350);
+          oGC.lineTo(350,200);
+          oGC.closePath();  //帮助闭合路径
+          oGC.stroke(); //划线连接
+
+          //清除画布某个区域
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            oGC.clearRect(100,100,100,200);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          //清除整个画布区域
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            oGC.clearRect(0,0,400,400);
+save  : 保存路径
+restore  :  恢复路径
+例子   :&lt;br /&gt;
+鼠标画线&lt;br /&gt;
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              oGC.strokeStyle = &amp;ldquo;red&amp;rdquo;;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          //线帽
+          oGC.lineCap = &amp;quot;round&amp;quot;;
+          oGC.lineWidth = &amp;quot;10&amp;quot;;
+
+
+          oC.onmousedown = function(ev){
+               //确定划线的起始位置
+               oGC.beginPath();
+               oGC.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+               oC.onmousemove = function(ev){
+                    oGC.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+                    oGC.stroke();
+               }
+
+               oC.onmouseup = function(){
+
+                    oC.onmousemove = null;
+                    oC.onmouseup = null;
+               }
+          }
+
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;方块移动
+canvas &amp;ldquo;动画效果 &amp;ldquo;， 边擦边画实现
+&lt;canvas id=&#34;c1&#34; width=&#34;400&#34; height=&#34;400&#34; tabindex=&#34;0&#34;&gt;&lt;/canvas&gt;
+&lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              oGC.fillStyle= &amp;ldquo;red&amp;rdquo;;
+              oGC.fillRect(0, 0, 100, 100);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var iNow = 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            setInterval(function(){
+//                 oGC.clearRect(0,0,400,400);
+//                 iNow++;
+//                 oGC.fillRect(0, iNow, 100, 100);
+//            },30);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          //canvas本身 不支持键盘事件。
+
+          //支持键盘有两种方法：
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            (1)给window 绑定键盘&lt;/p&gt;
+
+&lt;p&gt;//            (2)给canvas 加上一个tabindex 属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;           var isRightNow = 0;
+          oC.onkeydown = function(ev){
+
+               if(ev.keyCode==39){
+                    oGC.clearRect(0,0,400,400);
+                    isRightNow++;
+                    oGC.fillRect(isRightNow,0,100,100);
+               }else if(ev.keyCode==37){
+                    oGC.clearRect(0,0,400,400);
+                    isRightNow--;
+
+                    oGC.fillRect(isRightNow,0,100,100);
+               }
+          }
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;绘制圆
+- arc(x, y, 半径, 起始弧度, 结束弧度, 旋转方向)
+- x , y : 起始位置
+- 弧度与角度的关系：弧度 = 角度*Math.PI/180
+- 旋转方向：默认 : 顺时针旋转 , 最后一个参数控制旋转方向 ：false顺时针，true就是逆时针&lt;/p&gt;
+
+&lt;p&gt;插入图
+- 等图片加载完，再执行canvas操作
+- 图片预加载：直接在JS中可以载入一张图片，不需要写到html中。在onload中调用方法
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              var yImg = new Image();
+              yImg.onload = function() {
+                   //参数个数 : 3个 5个 9个
+                   //3参数 : 图片对象 , x坐标 , y坐标
+                   //5参数 : 图片对象 , x坐标 , y坐标 , w宽 , h高
+                   //9参数 : 图片对象 ,图片中的x坐标,图片中的y坐标,图片中的w宽,图片中的h高, canvas中的x坐标 , canvas中的y坐标 , canvas中的w宽               , canvas中的h高
+                   //     oGC.drawImage(yImg,100,100,100,100);
+                   oGC.drawImage(yImg,0,0,100,100,0,0,100,100);
+              };
+              yImg.src = &amp;lsquo;img/1.jpg&amp;rsquo;;
+          &lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;设置背景
+- createPattern(oImg,平铺方式)
+- 2参为：repeat、repeat-x、repeat-y、no-repeat&lt;/p&gt;
+
+&lt;p&gt;文本
+- fillText(文字,x,y)
+- font
+- 文字大小 : &amp;ldquo;60px 微软雅黑&amp;rdquo;     两个属性都必须写
+- textAlign
+- 默认是start 跟left一样的效果 end right center
+- textBaseline
+- 文字上下的位置的方式 默认 : alphabetic  其他值top bottom middle hanging&lt;/p&gt;
+
+&lt;p&gt;阴影
+- shadowOffsetX、shadowOffsetY
+- X轴偏移、Y轴偏移
+- shadowBlur
+- 高斯模糊值
+- shadowColor
+- 阴影颜色
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var str = &#39;宇宙第一天团&#39;;
+          oGC.font = &#39;60px 微软雅黑&#39;; //大小和字体都写才会起作用
+          oGC.textAlign = &amp;quot;left&amp;quot;;
+          oGC.textBaseline = &amp;quot;hanging&amp;quot;;
+          oGC.save();
+          oGC.shadowOffsetX = 10; //默认阴影颜色 : 黑色透明 0 0 0 0
+          oGC.shadowOffsetY = 10;
+          oGC.shadowBlur = 10;
+          oGC.shadowColor = &#39;red&#39;;
+
+          oGC.fillText(str, 0, 0);
+          oGC.restore();
+
+          oGC.fillRect(100, 100, 100, 100);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;像素-canvas中绘制的是位图(像素组成的)
+- getImageData(x,y,w,h)
+- 获取图像数据
+- putImageData(获取图像,x,y)
+- 设置新的图像数据
+- 像素矩阵属性
+- width height data
+- createImageData(w,h)
+- 生成新的像素矩阵，初始值是全透明的黑色，即(0,0,0,0)
+oGC.globalAlpha 设置透明度
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              var yImg = new Image();
+              yImg.onload = function() {
+                   oGC.drawImage(yImg,0,0,100,100,0,0,100,100);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;               var img = oGC.getImageData(0,0,100,100);
+               for(var i =0;i&amp;lt;img.data.length;i+=4){
+                    img.data[i+3]= &amp;quot;100&amp;quot;;
+               }
+
+               oGC.putImageData(img,100,100);
+          };
+          yImg.src = &#39;img/1.jpg&#39;;
+
+      &amp;lt;/script&amp;gt;
+
+      &amp;lt;script&amp;gt;
+          var oC = document.getElementById(&#39;c1&#39;);
+          var oGC = oC.getContext(&#39;2d&#39;);
+
+          var img = oGC.createImageData(100,100);
+          //console.log(img.data); 初始值是全透明的黑色，即(0,0,0,0)
+
+          for(var i = 0; i &amp;lt; img.data.length; i += 4) {
+               img.data[i + 3] = 255;
+               img.data[i + 2] = 255;
+          }
+
+          oGC.putImageData(img, 100, 100);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

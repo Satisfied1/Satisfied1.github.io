@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端天地</title>
+    <link>https://Satisfied1.github.io/tags/angularjs/index.xml</link>
+    <description>Recent content on 前端天地</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the MIT license</copyright>
+    <atom:link href="https://Satisfied1.github.io/tags/angularjs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AngularJS的工作原理</title>
+      <link>https://satisfied1.github.io/post/AngularJS%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 07 Dec 2016 15:39:19 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/AngularJS%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;p&gt;HTML模板将会被浏览器解析到DOM中, DOM结构成为AngularJS编译器的输入。AngularJS将会遍历DOM模板, 来生成相应的NG指令,所有的指令都负责针对view(即HTML中的ng-model)来设置数据绑定。因此, NG框架是在DOM加载完成之后, 才开始起作用的.&lt;/p&gt;
+
+&lt;p&gt;在html中:&lt;/p&gt;
+
+&lt;p&gt;&lt;body ng-app=&#34;ngApp&#34;&gt;
+    &lt;div ng-controller=&#34;ngCtl&#34;&gt;
+        &lt;label ng-model=&#34;myLabel&#34;&gt;&lt;/label&gt;
+        &lt;input type=&#34;text&#34; ng-model=&#34;myInput&#34; /&gt;
+        &lt;button ng-model=&#34;myButton&#34; ng-click=&#34;btnClicked&#34;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+在js中:&lt;/p&gt;
+
+&lt;p&gt;// angular app
+var app = angular.module(&amp;ldquo;ngApp&amp;rdquo;, [], function(){
+    console.log(&amp;ldquo;ng-app : ngApp&amp;rdquo;);
+});
+// angular controller
+app.controller(&amp;ldquo;ngCtl&amp;rdquo;, [ &amp;lsquo;$scope&amp;rsquo;, function($scope){
+    console.log(&amp;ldquo;ng-controller : ngCtl&amp;rdquo;);
+    $scope.myLabel = &amp;ldquo;text for label&amp;rdquo;;
+    $scope.myInput = &amp;ldquo;text for input&amp;rdquo;;
+    $scope.btnClicked = function() {
+        console.log(&amp;ldquo;Label is &amp;rdquo; + $scope.myLabel);
+    }
+}]);
+如上,我们在html中先定义一个angular的app,指定一个angular的controller,则该controller会对应于一个作用域(可以用$scope前缀来指定作用域中的属性和方法等). 则在该ngCtl的作用域内的HTML标签, 其值或者操作都可以通过$scope的方式跟js中的属性和方法进行绑定.&lt;/p&gt;
+
+&lt;p&gt;这样, 就实现了NG的双向数据绑定: 即HTML中呈现的view与AngularJS中的数据是一致的. 修改其一, 则对应的另一端也会相应地发生变化.&lt;/p&gt;
+
+&lt;p&gt;这样的方式,使用起来真的非常方便. 我们仅关心HTML标签的样式, 及其对应在js中angular controller作用域下绑定的属性和方法. 仅此而已, 将众多复杂的DOM操作全都省略掉了.&lt;/p&gt;
+
+&lt;p&gt;这样的思想,其实跟jQuery的DOM查询和操作是完全不一样的, 因此也有很多人建议用AngularJS的时候,不要混合使用jQuery. 当然, 二者各有优劣, 使用哪个就要看自己的选择了.&lt;/p&gt;
+
+&lt;p&gt;NG中的app相当于一个模块module, 在每个app中可以定义多个controller, 每个controller都会有各自的作用域空间,不会相互干扰.&lt;/p&gt;
+
+&lt;p&gt;看下边这段html:&lt;/p&gt;
+
+&lt;p&gt;&lt;div ng-app=&#34;dataApp&#34;&gt;
+    单价： &lt;input type=&#34;number&#34; min=0 ng-model=&#34;price&#34; ng-init=&#34;price = 299&#34;&gt;&lt;br&gt;
+    数量： &lt;input type=&#34;number&#34; min=0 ng-model=&#34;quantity&#34; ng-init=&#34;quantity = 1&#34;&gt;&lt;br&gt;
+    总价： {{ quantity * price }}
+&lt;/div&gt;
+你会惊喜地发现, 甚至不用写一行的JS代码, 即可完成计算并在界面展示结果.&lt;/p&gt;
+
+&lt;p&gt;即: 在前端html中使用{{ }}括起来的变量, 是跟AngularJS中对应的controller作用域内的属性绑定在一起的. 实际上,{{}}等同于ng-bind指令, 即ng-bind=&amp;ldquo;myData&amp;rdquo;就能将NG中的myData数据跟前端对应元素绑定在一起.这样的话, 可以非常方便地做到从NG中获取任意数据并实时展示在页面上了.&lt;/p&gt;
+
+&lt;p&gt;另外, $scope对象还提供了一个$apply方法, 用于进行html页面上的更新, 使用方式为:&lt;/p&gt;
+
+&lt;p&gt;$scope.$apply(function(){
+    $scope.myValue = &amp;ldquo;NewValue&amp;rdquo;;
+});
+$scope对象, 我们可以理解为NG框架中的一个作用域对象, 在该作用域内可以做到数据和视图的相互绑定, 同时又能与其他$scope对象的作用域隔离开来.&lt;/p&gt;
+
+&lt;p&gt;当然, $scope也可以实现继承, 这部分内容在以后接触NG框架中其他对象的时候再分别做记录.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Angular JS的哲学</title>
+      <link>https://satisfied1.github.io/post/AngularJS%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</link>
+      <pubDate>Wed, 07 Dec 2016 15:13:44 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/AngularJS%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
+      <description>
+
+&lt;h3 id=&#34;信念&#34;&gt;信念&lt;/h3&gt;
+
+&lt;p&gt;AngularJS是建立在这样的信念之上：当组建视图同时又要写软件逻辑时，声明式的代码会比命令式的代码好得多，尽管命令式的代码非常适合用来表述业务逻辑。Angular JS框架采用并扩展了传统HTML，通过双向的数据绑定来适应动态内容，双向的数据绑定允许模型和视图之间的自动同步。因此，AngularJS使得对DOM的操作不再重要并提升了可测试性。&lt;/p&gt;
+
+&lt;h3 id=&#34;设计目标&#34;&gt;设计目标&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;将应用逻辑与对DOM的操作解耦，这会大大改善代码的可调性和可测试性。&lt;/li&gt;
+&lt;li&gt;将测试和开发看的一样重要，代码的结构对测试的难度有巨大的影响。&lt;/li&gt;
+&lt;li&gt;将应用程序的客户端与服务器端解耦。这允许客户端和服务器端的开发可以齐头并进，并且让双方的复用成为可能。&lt;/li&gt;
+&lt;li&gt;指导开发者完成构建应用程序的整个历程: 从用户界面的设计，到编写业务逻辑，再到测试。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;实现方法&#34;&gt;实现方法&lt;/h3&gt;
+
+&lt;p&gt;通常，我们是通过以下技术来解决静态网页技术在构建动态应用上的不足：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;类库 - 类库是一些函数的集合，它能帮助你写WEB应用。起主导作用的是你的代码，由你来决定何时使用类库。类库有：jQuery等&lt;/li&gt;
+&lt;li&gt;框架 - 框架是一种特殊的、已经实现了的WEB应用，你只需要对它填充具体的业务逻辑。这里框架是起主导作用的，由它来根据具体的应用逻辑来调用你的代码。框架有：knockout、sproutcore等。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AngularJS使用不同的方法，它尝试去补足HTML本身在构建应用方面的缺陷。AngularJS通过使用我们称为指令(directives)的结构，让浏览器能够识别新的语法。例如：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;使用双大括号{{}}语法进行数据绑定；&lt;/li&gt;
+&lt;li&gt;使用DOM控制结构来实现迭代或者隐藏DOM片段；&lt;/li&gt;
+&lt;li&gt;支持表单和表单的验证；&lt;/li&gt;
+&lt;li&gt;能将逻辑代码关联到相关的DOM元素上；&lt;/li&gt;
+&lt;li&gt;能将HTML分组成可重用的组件。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AngularJS数据双向绑定揭秘</title>
+      <link>https://satisfied1.github.io/post/Angular%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%8F%AD%E7%A7%98/</link>
+      <pubDate>Wed, 07 Dec 2016 15:13:44 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/Angular%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%8F%AD%E7%A7%98/</guid>
+      <description>&lt;p&gt;AngularJS在$scope变量中使用脏值检查来实现了数据双向绑定。和Ember.js数据双向绑定中动态设施setter和getter不同，脏治检查允许AngularJS监视那些存在或者不存在的变量。&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch( watchExp, listener, objectEquality );
+为了监视一个变量的变化，你可以使用$scope.$watch函数。这个函数有三个参数，它指明了”要观察什么”(watchExp)，”在变化时要发生什么”(listener),以及你要监视的是一个变量还是一个对象。当我们在检查一个参数时，我们可以忽略第三个参数。例如下面的例子：&lt;/p&gt;
+
+&lt;p&gt;$scope.name = &amp;lsquo;Ryan&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch( function( ) {
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(&amp;lsquo;$scope.name was updated!&amp;rsquo;);
+} );
+AngularJS将会在$scope中注册你的监视函数。你可以在控制台中输出$scope来查看$scope中的注册项目。&lt;/p&gt;
+
+&lt;p&gt;你可以在控制台中看到$scope.name已经发生了变化 – 这是因为$scope.name之前的值似乎undefined而现在我们将它赋值为Ryan!&lt;/p&gt;
+
+&lt;p&gt;对于$wach的第一个参数，你也可以使用一个字符串。这和提供一个函数完全一样。在AngularJS的源代码中可以看到，如果你使用了一个字符串，将会运行下面的代码：&lt;/p&gt;
+
+&lt;p&gt;if (typeof watchExp == &amp;lsquo;string&amp;rsquo; &amp;amp;&amp;amp; get.constant) {
+  var originalFn = watcher.fn;
+  watcher.fn = function(newVal, oldVal, scope) {
+    originalFn.call(this, newVal, oldVal, scope);
+    arrayRemove(array, watcher);
+  };
+}
+这将会把我们的watchExp设置为一个函数，它也自动返回作用域中我们已经制定了名字的变量。&lt;/p&gt;
+
+&lt;p&gt;$$watchers&lt;/p&gt;
+
+&lt;p&gt;$scope中的$$watchers变量保存着我们定义的所有的监视器。如果你在控制台中查看$$watchers，你会发现它是一个对象数组。&lt;/p&gt;
+
+&lt;p&gt;$$watchers = [
+    {
+        eq: false, // 表明我们是否需要检查对象级别的相等
+        fn: function( newValue, oldValue ) {}, // 这是我们提供的监听器函数
+        last: &amp;lsquo;Ryan&amp;rsquo;, // 变量的最新值
+        exp: function(){}, // 我们提供的watchExp函数
+        get: function(){} // Angular&amp;rsquo;s编译后的watchExp函数
+    }
+];
+$watch函数将会返回一个deregisterWatch函数。这意味着如果我们使用$scope.$watch对一个变量进行监视，我们也可以在以后通过调用某个函数来停止监视。&lt;/p&gt;
+
+&lt;p&gt;$scope.$apply&lt;/p&gt;
+
+&lt;p&gt;当一个控制器/指令/等等东西在AngularJS中运行时，AngularJS内部会运行一个叫做$scope.$apply的函数。这个$apply函数会接收一个函数作为参数并运行它，在这之后才会在rootScope上运行$digest函数。&lt;/p&gt;
+
+&lt;p&gt;AngularJS的$apply函数代码如下所示：&lt;/p&gt;
+
+&lt;p&gt;$apply: function(expr) {
+    try {
+      beginPhase(&amp;lsquo;$apply&amp;rsquo;);
+      return this.$eval(expr);
+    } catch (e) {
+      $exceptionHandler(e);
+    } finally {
+      clearPhase();
+      try {
+        $rootScope.$digest();
+      } catch (e) {
+        $exceptionHandler(e);
+        throw e;
+      }
+    }
+}
+上面代码中的expr参数就是你在调用$scope.$apply()时传递的参数 – 但是大多数时候你可能都不会去使用$apply这个函数，要用的时候记得给它传递一个参数。&lt;/p&gt;
+
+&lt;p&gt;下面我们来看看ng-keydown是怎么来使用$scope.$apply的。为了注册这个指令，AngularJS会使用下面的代码。&lt;/p&gt;
+
+&lt;p&gt;var ngEventDirectives = {};
+forEach(
+  &amp;lsquo;click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste&amp;rsquo;.split(&amp;rsquo; &amp;lsquo;),
+  function(name) {
+    var directiveName = directiveNormalize(&amp;lsquo;ng-&amp;rsquo; + name);
+    ngEventDirectives[directiveName] = [&amp;lsquo;$parse&amp;rsquo;, function($parse) {
+      return {
+        compile: function($element, attr) {
+          var fn = $parse(attr[directiveName]);
+          return function ngEventHandler(scope, element) {
+            element.on(lowercase(name), function(event) {
+              scope.$apply(function() {
+                fn(scope, {$event:event});
+              });
+            });
+          };
+        }
+      };
+    }];
+  }
+);
+上面的代码做的事情是循环了不同的类型的事件，这些事件在之后可能会被触发并创建一个叫做ng-[某个事件]的新指令。在指令的compile函数中，它在元素上注册了一个事件处理器，它和指令的名字一一对应。当事件被出发时，AngularJS就会运行scope.$apply函数，并让它运行一个函数。&lt;/p&gt;
+
+&lt;p&gt;只是单向数据绑定吗？&lt;/p&gt;
+
+&lt;p&gt;上面所说的ng-keydown只能够改变和元素值相关联的$scope中的值 – 这只是单项数据绑定。这也是这个指令叫做ng-keydown的原因，只有在keydown事件被触发时，能够给与我们一个新值。&lt;/p&gt;
+
+&lt;p&gt;但是我们想要的是双向数据绑定！&lt;/p&gt;
+
+&lt;p&gt;我们现在来看一看ng-model。当你在使用ng-model时，你可以使用双向数据绑定 – 这正是我们想要的。AngularJS使用$scope.$watch（视图到模型）以及$scope.$apply（模型到视图）来实现这个功能。&lt;/p&gt;
+
+&lt;p&gt;ng-model会把事件处理指令(例如keydown)绑定到我们运用的输入元素上 – 这就是$scope.$apply被调用的地方！而$scope.$watch是在指令的控制器中被调用的。你可以在下面代码中看到这一点：&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch(function ngModelWatch() {
+    var value = ngModelGet($scope);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//如果作用域模型值和ngModel值没有同步
+if (ctrl.$modelValue !== value) {
+
+    var formatters = ctrl.$formatters,
+        idx = formatters.length;
+
+    ctrl.$modelValue = value;
+    while(idx--) {
+        value = formatters[idx](value);
+    }
+
+    if (ctrl.$viewValue !== value) {
+        ctrl.$viewValue = value;
+        ctrl.$render();
+    }
+}
+
+return value;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+如果你在调用$scope.$watch时只为它传递了一个参数，无论作用域中的什么东西发生了变化，这个函数都会被调用。在ng-model中，这个函数被用来检查模型和视图有没有同步，如果没有同步，它将会使用新值来更新模型数据。这个函数会返回一个新值，当它在$digest函数中运行时，我们就会知道这个值是什么！&lt;/p&gt;
+
+&lt;p&gt;为什么我们的监听器没有被触发？&lt;/p&gt;
+
+&lt;p&gt;如果我们在$scope.$watch的监听器函数中停止这个监听，即使我们更新了$scope.name，该监听器也不会被触发。&lt;/p&gt;
+
+&lt;p&gt;正如前面所提到的，AngularJS将会在每一个指令的控制器函数中运行$scope.$apply。如果我们查看$scope.$apply函数的代码，我们会发现它只会在控制器函数已经开始被调用之后才会运行$digest函数 – 这意味着如果我们马上停止监听，$scope.$watch函数甚至都不会被调用！但是它究竟是怎样运行的呢？&lt;/p&gt;
+
+&lt;p&gt;$digest函数将会在$rootScope中被$scope.$apply所调用。它将会在$rootScope中运行digest循环，然后向下遍历每一个作用域并在每个作用域上运行循环。在简单的情形中，digest循环将会触发所有位于$$watchers变量中的所有watchExp函数，将它们和最新的值进行对比，如果值不相同，就会触发监听器。&lt;/p&gt;
+
+&lt;p&gt;当digest循环运行时，它将会遍历所有的监听器然后再次循环，只要这次循环发现了”脏值”，循环就会继续下去。如果watchExp的值和最新的值不相同，那么这次循环就会被认为发现了脏值。理想情况下它会运行一次，如果它运行超10次，你会看到一个错误。&lt;/p&gt;
+
+&lt;p&gt;因此当$scope.$apply运行的时候，$digest也会运行，它将会循环遍历$$watchers，只要发现watchExp和最新的值不相等，变化触发事件监听器。在AngularJS中，只要一个模型的值可能发生变化，$scope.$apply就会运行。这就是为什么当你在AngularJS之外更新$scope时，例如在一个setTimeout函数中，你需要手动去运行$scope.$apply()：这能够让AngularJS意识到它的作用域发生了变化。&lt;/p&gt;
+
+&lt;p&gt;创建自己的脏值检查&lt;/p&gt;
+
+&lt;p&gt;到此为止，我们已经可以来创建一个小巧的，简化版本的脏值检查了。当然，相比较之下，AngularJS中实现的脏值检查要更加先进一些，它提供疯了异步队列以及其他一些高级功能。&lt;/p&gt;
+
+&lt;p&gt;设置Scope&lt;/p&gt;
+
+&lt;p&gt;Scope仅仅只是一个函数，它其中包含任何我们想要存储的对象。我们可以扩展这个函数的原型对象来复制$digest和$watch。我们不需要$apply方法，因为我们不需要在作用域的上下文中执行任何函数 – 我们只需要简单的使用$digest。我们的Scope的代码如下所示：&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( ) {&lt;/p&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {&lt;/p&gt;
+
+&lt;p&gt;};
+我们的$watch函数需要接受两个参数，watchExp和listener。当$watch被调用时，我们需要将它们push进入到Scope的$$watcher数组中。&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {&lt;/p&gt;
+
+&lt;p&gt;};
+你可能已经注意到了，如果没有提供listener，我们会将listener设置为一个空函数 – 这样一来我们可以$watch所有的变量。&lt;/p&gt;
+
+&lt;p&gt;接下来我们将会创建$digest。我们需要来检查旧值是否等于新的值，如果二者不相等，监听器就会被触发。我们会一直循环这个过程，直到二者相等。这就是”脏值”的来源 – 脏值意味着新的值和旧的值不相等！&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {
+    var dirty;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;do {
+        dirty = false;
+
+        for( var i = 0; i &amp;lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};
+接下来，我们将创建一个作用域的实例。我们将这个实例赋值给$scope。我们接着会注册一个监听函数，在更新$scope之后运行$digest！&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {
+    var dirty;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;do {
+        dirty = false;
+
+        for( var i = 0; i &amp;lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;var $scope = new Scope();&lt;/p&gt;
+
+&lt;p&gt;$scope.name = &amp;lsquo;Ryan&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch(function(){
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(newValue, oldValue);
+} );&lt;/p&gt;
+
+&lt;p&gt;$scope.$digest();
+成功了！我们现在已经实现了脏值检查(虽然这是最简单的形式)！上述代码将会在控制台中输出下面的内容：&lt;/p&gt;
+
+&lt;p&gt;Ryan undefined
+这正是我们想要的结果 – $scope.name之前的值是undefined，而现在的值是Ryan。&lt;/p&gt;
+
+&lt;p&gt;现在我们把$digest函数绑定到一个input元素的keyup事件上。这就意味着我们不需要自己去调用$digest。这也意味着我们现在可以实现双向数据绑定！&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {
+    var dirty;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;do {
+        dirty = false;
+
+        for( var i = 0; i &amp;lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;var $scope = new Scope();&lt;/p&gt;
+
+&lt;p&gt;$scope.name = &amp;lsquo;Ryan&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;var element = document.querySelectorAll(&amp;lsquo;input&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;element[0].onkeyup = function() {
+    $scope.name = element[0].value;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$scope.$digest();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch(function(){
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(&amp;lsquo;Input value updated - it is now &amp;rsquo; + newValue);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;element[0].value = $scope.name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;} );&lt;/p&gt;
+
+&lt;p&gt;var updateScopeValue = function updateScopeValue( ) {
+    $scope.name = &amp;lsquo;Bob&amp;rsquo;;
+    $scope.$digest();
+};
+使用上面的代码，无论何时我们改变了input的值，$scope中的name属性都会相应的发生变化。这就是隐藏在AngularJS神秘外衣之下数据双向绑定的秘密！&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ryanclark.me/how-angularjs-implements-dirty-checking&#34;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

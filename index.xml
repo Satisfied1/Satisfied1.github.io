@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端天地</title>
+    <link>https://Satisfied1.github.io/index.xml</link>
+    <description>Recent content on 前端天地</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the MIT license</copyright>
+    <lastBuildDate>Wed, 07 Dec 2016 15:55:36 +0800</lastBuildDate>
+    <atom:link href="https://Satisfied1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>rem布局</title>
+      <link>https://satisfied1.github.io/post/rem/</link>
+      <pubDate>Wed, 07 Dec 2016 15:55:36 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/rem/</guid>
+      <description>&lt;p&gt;rem布局优点：等比例放大
+rem布局缺点：大屏幕手机上看到元素还是一样多，违反设计原则&lt;/p&gt;
+
+&lt;p&gt;rem布局实现方式：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;设计时 按照font-size:20px; 算出了所有的rem。
+（可以设置成100，这样计算起来更方便）&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;动态的计算出html font-size事件(document.documentElement.clientWidth /设计稿宽度)*20px;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;对于文字大小的处理 设置成px值&lt;/p&gt;
+
+&lt;p&gt;响应式设计
+小于400px  14px;
+大于400px小于600px  16px;
+大于600px   18px;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;字体样式：用手机默认字体&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;需要用CSS预编译实现rem布局
+rem.scss中
+$font-size:20;&lt;/p&gt;
+
+&lt;p&gt;@function px2rem($px){
+     @return $px / $font-size * 1rem;
+}
+index.scss中
+@import &amp;ldquo;rem&amp;rdquo;;
+div{
+     width: px2rem(100);
+)
+index.html的head中
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1.0,user-scalable=no&#34;&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#39;lib/jquery.min.js&#39;&gt;&lt;/script&gt;//先引入jquery，否则下面的js代码用原生写
+&lt;script type=&#34;text/javascript&#34;&gt;
+           $(&amp;rdquo;[name=&amp;lsquo;viewport&amp;rsquo;]&amp;ldquo;).attr(&amp;ldquo;content&amp;rdquo;,&amp;ldquo;width=device-width,initial-scale=&amp;rdquo;+1/window.devicePixelRatio+&amp;ldquo;,user-scalable=no&amp;rdquo;);
+          // 可布局的宽度 =  物理分辨率/window.devicePixelRatio/initial-scale
+          //此处initial-scale设置会使可布局宽度=物理分辨率，可以根据设计稿大小直接写样式，更方便开发
+&lt;/script&gt;
+index.js中，根据屏幕宽度自动按比例更改字体大小
+(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var docEl = document.documentElement;
+var resizeEvt = &#39;orientation&#39; in window ? &#39;orientationchange&#39; : &#39;resize&#39;;
+
+// 在手机端有window.orientation属性,当前设备的屏幕方向，0表示竖屏，正负90表示横屏（向左与向右）模式
+var recalc = function() {
+        var clientWidth = docEl.clientWidth;
+
+        if (!clientWidth) return;
+        //20 ，是scss 定义的变量 就是计算rem的基准
+        // 640 是设计图的宽度。
+        docEl.style.fontSize = 20 * clientWidth / 640 + &#39;px&#39;;
+};
+
+if (!document.addEventListener) return;
+window.addEventListener(resizeEvt, recalc, false);
+
+//dom 节点加载完成后就会执行回调函数 DOMContentLoaded
+//(img 图片 ，script加载完后 ， dom节点创建完 css，)window.onload
+//$(function (){}) == $(document).ready(function(){})页面加载完(dom节点加载完)之后，就会执行这个参数function
+document.addEventListener(&#39;DOMContentLoaded&#39;, recalc, false);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;})();&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>H5本地存储</title>
+      <link>https://satisfied1.github.io/post/storage/</link>
+      <pubDate>Wed, 07 Dec 2016 15:54:17 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/storage/</guid>
+      <description>&lt;p&gt;cookie的特点
+- cookies 的大小限制在4KB
+- cookies 是随HTTP 请求一起被发送的，因此会浪费一部分带宽
+- 正确的操纵cookies 是很困难的
+cookie用户凭证&lt;/p&gt;
+
+&lt;p&gt;storage的特点
+- 存储量限制 ( 5M )
+- 客户端完成，不会请求服务器处理
+- sessionStorage,localStorage&lt;/p&gt;
+
+&lt;p&gt;storage API
+     sessionStorage(会话存储)
+          - session临时回话，从页面打开到页面关闭的时间段
+          - 窗口的临时存储，页面关闭，本地存储消失
+     localStorage
+          - 永久存储（可以手动删除数据）
+- setItem()
+- 设置数据，key\value类型，类型都是字符串
+- 可以用获取属性的形式操作
+- getItem()
+- 获取数据，通过key来获取到相应的value
+- removeItem()
+- 删除数据，通过key来删除相应的value
+- clear():
+- 删除全部存储的值
+          &lt;h1&gt;localStorage&lt;/h1&gt;
+          &lt;input type=&#34;text&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;存&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;取&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;删&#34;&gt;
+          &lt;iframe src=&#34;http://www.baidu.com&#34;&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      &amp;lt;script&amp;gt;
+          var aInput = document.getElementsByTagName(&#39;input&#39;);
+
+          aInput[1].onclick = function() {
+               window.localStorage.setItem(&#39;name&#39;, aInput[0].value);
+               window.localStorage.setItem(&#39;age&#39;, 30);
+          };
+          aInput[2].onclick = function() {
+               alert(window.localStorage.getItem(&#39;name&#39;));
+          };
+          aInput[3].onclick = function() {
+               //window.localStorage.removeItem(&#39;name&#39;);
+               window.localStorage.clear(); //删除所有的stroge
+          };
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;存储事件（storage事件）
+- 当数据有修改或删除的情况下，就会触发storage事件
+- 在对数据进行改变的窗口对象上是不会触发的，其他页面会触发
+- Key : 修改或删除的key值，如果调用clear(),key为null
+- oldValue :  原来设置的值
+- newValue : 新设置的值，如果调用removeStorage(),key为null
+- url : 触发该脚本变化的文档的url
+          &lt;h1&gt;storage 事件&lt;/h1&gt;
+          &lt;input type=&#34;text&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;存&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;取&#34;&gt;
+          &lt;input type=&#34;button&#34; value=&#34;删&#34;&gt;
+          &lt;script&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var aInput = document.getElementsByTagName(&#39;input&#39;);
+
+          aInput[1].onclick = function() {
+               window.localStorage.setItem(&#39;name&#39;, aInput[0].value);
+          };
+          aInput[2].onclick = function() {
+               alert(window.localStorage.getItem(&#39;name&#39;));
+          };
+          aInput[3].onclick = function() {
+               window.localStorage.removeItem(&#39;name&#39;);
+          };
+          //当数据有修改或删除的情况下，就会触发storage事件
+          //在对数据进行改变的窗口对象上是不会触发的
+          window.addEventListener(&#39;storage&#39;, function(ev) {
+               console.log(ev.key);
+               console.log(ev.oldValue);
+               console.log(ev.newValue);
+               console.log(ev.storageArea);
+               console.log(ev.url);
+               alert(&amp;quot;已经修改storage&amp;quot;);
+          }, false);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;应用缓存
+什么是应用程序缓存（Application Cache）？
+HTML5 引入了应用程序缓存，这意味着 web 应用可进行缓存，并可在没有因特网连接时进行访问。
+应用程序缓存为应用带来三个优势：
+     离线浏览 - 用户可在应用离线时使用它们
+     速度 - 已缓存资源加载得更快
+     减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源。
+浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。
+说明：
+&lt;a href=&#34;http://www.w3school.com.cn/html5/html_5_app_cache.asp&#34;&gt;http://www.w3school.com.cn/html5/html_5_app_cache.asp&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>canvas</title>
+      <link>https://satisfied1.github.io/post/canvas/</link>
+      <pubDate>Wed, 07 Dec 2016 15:53:28 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/canvas/</guid>
+      <description>&lt;p&gt;canvas标签
+（1）这个 HTML 元素是为了客户端矢量图形而设计的。它自己没有行为，但却把一个绘图 API 展现给客户端JavaScript 以使脚本能够把想绘制的东西都绘制到一块画布上。
+（2）要从同一图形的一个 &lt;canvas&gt; 标记中移除元素，往往需要擦掉绘图重新绘制它。
+          &lt;canvas id=&#34;c1&#34; width=&#34;400&#34; height=&#34;400&#34;&gt;
+              你的浏览器不支持！
+          &lt;!--默认有宽高 : width:300 height:150 。
+          canvas的正确设置宽高 :属性 width=&#34;400&#34; height=&#34;400&#34; --&gt;
+          &lt;/canvas&gt;&lt;/p&gt;
+
+&lt;p&gt;绘制方块
+获取绘制环境的方法      getContext(&amp;ldquo;2d&amp;rdquo;)
+fillRect(L,T,W,H)
+默认颜色是黑色      填充
+strokeRect(L,T,W,H)
+带边框的方块      默认一像素黑色边框
+          &lt;script&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var oC = document.getElementById(&amp;quot;c1&amp;quot;);
+
+          //获取绘制2d 图像的环境。
+          var oCanvas = oC.getContext(&amp;quot;2d&amp;quot;);
+
+
+          oCanvas.fillRect(100,100,100,100);
+
+          //左边距 上边距  ，矩形宽 和高。
+          oCanvas.strokeRect(100,250,100,100);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;设置绘图
+fillStyle  :  填充颜色
+lineWidth  :  线宽度，是一个数值
+strokeStyle : 边线颜色
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          oGC.fillStyle = &#39;yellow&#39;;
+          oGC.fillRect(100,100,200,100);
+
+          oGC.strokeStyle = &#39;blue&#39;;
+          oGC.lineWidth = 10;
+          oGC.strokeRect(100,250,100,100);
+
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;边界绘制
+lineJoin:边界连接点样式     miter(默认) 、round(圆角)、bevel(斜角)
+绘制线的图形，而不是填充的图形&lt;/p&gt;
+
+&lt;p&gt;绘制路径
+beginPath :  开始绘制路径
+closePath  :  结束绘制路径（自动闭合相关路径） closePath()要在stroke 前调用
+moveTo  :  确定绘制的起始点
+lineTo  :  绘制路径到新的目标点
+stroke  :  画线，默认黑色&lt;br /&gt;
+fill  :  填充，默认黑色
+clearRect  :   清除一个画布的矩形区域
+              oGC.beginPath(); //开始绘制路径
+              oGC.moveTo(100,100);  //设置一个初始点
+              oGC.lineTo(200,200); //下一个目标点
+              oGC.lineTo(200,300); //
+              oGC.closePath();
+              oGC.fill();  //填充颜色&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          oGC.beginPath();     //如果不新开这个路径，那么会将所有点连接起来
+          oGC.moveTo(300,300);
+          oGC.lineTo(300,350);
+          oGC.lineTo(350,200);
+          oGC.closePath();  //帮助闭合路径
+          oGC.stroke(); //划线连接
+
+          //清除画布某个区域
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            oGC.clearRect(100,100,100,200);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          //清除整个画布区域
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            oGC.clearRect(0,0,400,400);
+save  : 保存路径
+restore  :  恢复路径
+例子   :&lt;br /&gt;
+鼠标画线&lt;br /&gt;
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              oGC.strokeStyle = &amp;ldquo;red&amp;rdquo;;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          //线帽
+          oGC.lineCap = &amp;quot;round&amp;quot;;
+          oGC.lineWidth = &amp;quot;10&amp;quot;;
+
+
+          oC.onmousedown = function(ev){
+               //确定划线的起始位置
+               oGC.beginPath();
+               oGC.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+               oC.onmousemove = function(ev){
+                    oGC.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+                    oGC.stroke();
+               }
+
+               oC.onmouseup = function(){
+
+                    oC.onmousemove = null;
+                    oC.onmouseup = null;
+               }
+          }
+
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;方块移动
+canvas &amp;ldquo;动画效果 &amp;ldquo;， 边擦边画实现
+&lt;canvas id=&#34;c1&#34; width=&#34;400&#34; height=&#34;400&#34; tabindex=&#34;0&#34;&gt;&lt;/canvas&gt;
+&lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              oGC.fillStyle= &amp;ldquo;red&amp;rdquo;;
+              oGC.fillRect(0, 0, 100, 100);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var iNow = 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            setInterval(function(){
+//                 oGC.clearRect(0,0,400,400);
+//                 iNow++;
+//                 oGC.fillRect(0, iNow, 100, 100);
+//            },30);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          //canvas本身 不支持键盘事件。
+
+          //支持键盘有两种方法：
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;//            (1)给window 绑定键盘&lt;/p&gt;
+
+&lt;p&gt;//            (2)给canvas 加上一个tabindex 属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;           var isRightNow = 0;
+          oC.onkeydown = function(ev){
+
+               if(ev.keyCode==39){
+                    oGC.clearRect(0,0,400,400);
+                    isRightNow++;
+                    oGC.fillRect(isRightNow,0,100,100);
+               }else if(ev.keyCode==37){
+                    oGC.clearRect(0,0,400,400);
+                    isRightNow--;
+
+                    oGC.fillRect(isRightNow,0,100,100);
+               }
+          }
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;绘制圆
+- arc(x, y, 半径, 起始弧度, 结束弧度, 旋转方向)
+- x , y : 起始位置
+- 弧度与角度的关系：弧度 = 角度*Math.PI/180
+- 旋转方向：默认 : 顺时针旋转 , 最后一个参数控制旋转方向 ：false顺时针，true就是逆时针&lt;/p&gt;
+
+&lt;p&gt;插入图
+- 等图片加载完，再执行canvas操作
+- 图片预加载：直接在JS中可以载入一张图片，不需要写到html中。在onload中调用方法
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              var yImg = new Image();
+              yImg.onload = function() {
+                   //参数个数 : 3个 5个 9个
+                   //3参数 : 图片对象 , x坐标 , y坐标
+                   //5参数 : 图片对象 , x坐标 , y坐标 , w宽 , h高
+                   //9参数 : 图片对象 ,图片中的x坐标,图片中的y坐标,图片中的w宽,图片中的h高, canvas中的x坐标 , canvas中的y坐标 , canvas中的w宽               , canvas中的h高
+                   //     oGC.drawImage(yImg,100,100,100,100);
+                   oGC.drawImage(yImg,0,0,100,100,0,0,100,100);
+              };
+              yImg.src = &amp;lsquo;img/1.jpg&amp;rsquo;;
+          &lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;设置背景
+- createPattern(oImg,平铺方式)
+- 2参为：repeat、repeat-x、repeat-y、no-repeat&lt;/p&gt;
+
+&lt;p&gt;文本
+- fillText(文字,x,y)
+- font
+- 文字大小 : &amp;ldquo;60px 微软雅黑&amp;rdquo;     两个属性都必须写
+- textAlign
+- 默认是start 跟left一样的效果 end right center
+- textBaseline
+- 文字上下的位置的方式 默认 : alphabetic  其他值top bottom middle hanging&lt;/p&gt;
+
+&lt;p&gt;阴影
+- shadowOffsetX、shadowOffsetY
+- X轴偏移、Y轴偏移
+- shadowBlur
+- 高斯模糊值
+- shadowColor
+- 阴影颜色
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;          var str = &#39;宇宙第一天团&#39;;
+          oGC.font = &#39;60px 微软雅黑&#39;; //大小和字体都写才会起作用
+          oGC.textAlign = &amp;quot;left&amp;quot;;
+          oGC.textBaseline = &amp;quot;hanging&amp;quot;;
+          oGC.save();
+          oGC.shadowOffsetX = 10; //默认阴影颜色 : 黑色透明 0 0 0 0
+          oGC.shadowOffsetY = 10;
+          oGC.shadowBlur = 10;
+          oGC.shadowColor = &#39;red&#39;;
+
+          oGC.fillText(str, 0, 0);
+          oGC.restore();
+
+          oGC.fillRect(100, 100, 100, 100);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;像素-canvas中绘制的是位图(像素组成的)
+- getImageData(x,y,w,h)
+- 获取图像数据
+- putImageData(获取图像,x,y)
+- 设置新的图像数据
+- 像素矩阵属性
+- width height data
+- createImageData(w,h)
+- 生成新的像素矩阵，初始值是全透明的黑色，即(0,0,0,0)
+oGC.globalAlpha 设置透明度
+          &lt;script&gt;
+              var oC = document.getElementById(&amp;lsquo;c1&amp;rsquo;);
+              var oGC = oC.getContext(&amp;lsquo;2d&amp;rsquo;);
+              var yImg = new Image();
+              yImg.onload = function() {
+                   oGC.drawImage(yImg,0,0,100,100,0,0,100,100);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;               var img = oGC.getImageData(0,0,100,100);
+               for(var i =0;i&amp;lt;img.data.length;i+=4){
+                    img.data[i+3]= &amp;quot;100&amp;quot;;
+               }
+
+               oGC.putImageData(img,100,100);
+          };
+          yImg.src = &#39;img/1.jpg&#39;;
+
+      &amp;lt;/script&amp;gt;
+
+      &amp;lt;script&amp;gt;
+          var oC = document.getElementById(&#39;c1&#39;);
+          var oGC = oC.getContext(&#39;2d&#39;);
+
+          var img = oGC.createImageData(100,100);
+          //console.log(img.data); 初始值是全透明的黑色，即(0,0,0,0)
+
+          for(var i = 0; i &amp;lt; img.data.length; i += 4) {
+               img.data[i + 3] = 255;
+               img.data[i + 2] = 255;
+          }
+
+          oGC.putImageData(img, 100, 100);
+      &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AngularJS的工作原理</title>
+      <link>https://satisfied1.github.io/post/AngularJS%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 07 Dec 2016 15:39:19 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/AngularJS%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;p&gt;HTML模板将会被浏览器解析到DOM中, DOM结构成为AngularJS编译器的输入。AngularJS将会遍历DOM模板, 来生成相应的NG指令,所有的指令都负责针对view(即HTML中的ng-model)来设置数据绑定。因此, NG框架是在DOM加载完成之后, 才开始起作用的.&lt;/p&gt;
+
+&lt;p&gt;在html中:&lt;/p&gt;
+
+&lt;p&gt;&lt;body ng-app=&#34;ngApp&#34;&gt;
+    &lt;div ng-controller=&#34;ngCtl&#34;&gt;
+        &lt;label ng-model=&#34;myLabel&#34;&gt;&lt;/label&gt;
+        &lt;input type=&#34;text&#34; ng-model=&#34;myInput&#34; /&gt;
+        &lt;button ng-model=&#34;myButton&#34; ng-click=&#34;btnClicked&#34;&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+在js中:&lt;/p&gt;
+
+&lt;p&gt;// angular app
+var app = angular.module(&amp;ldquo;ngApp&amp;rdquo;, [], function(){
+    console.log(&amp;ldquo;ng-app : ngApp&amp;rdquo;);
+});
+// angular controller
+app.controller(&amp;ldquo;ngCtl&amp;rdquo;, [ &amp;lsquo;$scope&amp;rsquo;, function($scope){
+    console.log(&amp;ldquo;ng-controller : ngCtl&amp;rdquo;);
+    $scope.myLabel = &amp;ldquo;text for label&amp;rdquo;;
+    $scope.myInput = &amp;ldquo;text for input&amp;rdquo;;
+    $scope.btnClicked = function() {
+        console.log(&amp;ldquo;Label is &amp;rdquo; + $scope.myLabel);
+    }
+}]);
+如上,我们在html中先定义一个angular的app,指定一个angular的controller,则该controller会对应于一个作用域(可以用$scope前缀来指定作用域中的属性和方法等). 则在该ngCtl的作用域内的HTML标签, 其值或者操作都可以通过$scope的方式跟js中的属性和方法进行绑定.&lt;/p&gt;
+
+&lt;p&gt;这样, 就实现了NG的双向数据绑定: 即HTML中呈现的view与AngularJS中的数据是一致的. 修改其一, 则对应的另一端也会相应地发生变化.&lt;/p&gt;
+
+&lt;p&gt;这样的方式,使用起来真的非常方便. 我们仅关心HTML标签的样式, 及其对应在js中angular controller作用域下绑定的属性和方法. 仅此而已, 将众多复杂的DOM操作全都省略掉了.&lt;/p&gt;
+
+&lt;p&gt;这样的思想,其实跟jQuery的DOM查询和操作是完全不一样的, 因此也有很多人建议用AngularJS的时候,不要混合使用jQuery. 当然, 二者各有优劣, 使用哪个就要看自己的选择了.&lt;/p&gt;
+
+&lt;p&gt;NG中的app相当于一个模块module, 在每个app中可以定义多个controller, 每个controller都会有各自的作用域空间,不会相互干扰.&lt;/p&gt;
+
+&lt;p&gt;看下边这段html:&lt;/p&gt;
+
+&lt;p&gt;&lt;div ng-app=&#34;dataApp&#34;&gt;
+    单价： &lt;input type=&#34;number&#34; min=0 ng-model=&#34;price&#34; ng-init=&#34;price = 299&#34;&gt;&lt;br&gt;
+    数量： &lt;input type=&#34;number&#34; min=0 ng-model=&#34;quantity&#34; ng-init=&#34;quantity = 1&#34;&gt;&lt;br&gt;
+    总价： {{ quantity * price }}
+&lt;/div&gt;
+你会惊喜地发现, 甚至不用写一行的JS代码, 即可完成计算并在界面展示结果.&lt;/p&gt;
+
+&lt;p&gt;即: 在前端html中使用{{ }}括起来的变量, 是跟AngularJS中对应的controller作用域内的属性绑定在一起的. 实际上,{{}}等同于ng-bind指令, 即ng-bind=&amp;ldquo;myData&amp;rdquo;就能将NG中的myData数据跟前端对应元素绑定在一起.这样的话, 可以非常方便地做到从NG中获取任意数据并实时展示在页面上了.&lt;/p&gt;
+
+&lt;p&gt;另外, $scope对象还提供了一个$apply方法, 用于进行html页面上的更新, 使用方式为:&lt;/p&gt;
+
+&lt;p&gt;$scope.$apply(function(){
+    $scope.myValue = &amp;ldquo;NewValue&amp;rdquo;;
+});
+$scope对象, 我们可以理解为NG框架中的一个作用域对象, 在该作用域内可以做到数据和视图的相互绑定, 同时又能与其他$scope对象的作用域隔离开来.&lt;/p&gt;
+
+&lt;p&gt;当然, $scope也可以实现继承, 这部分内容在以后接触NG框架中其他对象的时候再分别做记录.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Angular JS的哲学</title>
+      <link>https://satisfied1.github.io/post/AngularJS%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</link>
+      <pubDate>Wed, 07 Dec 2016 15:13:44 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/AngularJS%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
+      <description>
+
+&lt;h3 id=&#34;信念&#34;&gt;信念&lt;/h3&gt;
+
+&lt;p&gt;AngularJS是建立在这样的信念之上：当组建视图同时又要写软件逻辑时，声明式的代码会比命令式的代码好得多，尽管命令式的代码非常适合用来表述业务逻辑。Angular JS框架采用并扩展了传统HTML，通过双向的数据绑定来适应动态内容，双向的数据绑定允许模型和视图之间的自动同步。因此，AngularJS使得对DOM的操作不再重要并提升了可测试性。&lt;/p&gt;
+
+&lt;h3 id=&#34;设计目标&#34;&gt;设计目标&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;将应用逻辑与对DOM的操作解耦，这会大大改善代码的可调性和可测试性。&lt;/li&gt;
+&lt;li&gt;将测试和开发看的一样重要，代码的结构对测试的难度有巨大的影响。&lt;/li&gt;
+&lt;li&gt;将应用程序的客户端与服务器端解耦。这允许客户端和服务器端的开发可以齐头并进，并且让双方的复用成为可能。&lt;/li&gt;
+&lt;li&gt;指导开发者完成构建应用程序的整个历程: 从用户界面的设计，到编写业务逻辑，再到测试。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;实现方法&#34;&gt;实现方法&lt;/h3&gt;
+
+&lt;p&gt;通常，我们是通过以下技术来解决静态网页技术在构建动态应用上的不足：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;类库 - 类库是一些函数的集合，它能帮助你写WEB应用。起主导作用的是你的代码，由你来决定何时使用类库。类库有：jQuery等&lt;/li&gt;
+&lt;li&gt;框架 - 框架是一种特殊的、已经实现了的WEB应用，你只需要对它填充具体的业务逻辑。这里框架是起主导作用的，由它来根据具体的应用逻辑来调用你的代码。框架有：knockout、sproutcore等。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AngularJS使用不同的方法，它尝试去补足HTML本身在构建应用方面的缺陷。AngularJS通过使用我们称为指令(directives)的结构，让浏览器能够识别新的语法。例如：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;使用双大括号{{}}语法进行数据绑定；&lt;/li&gt;
+&lt;li&gt;使用DOM控制结构来实现迭代或者隐藏DOM片段；&lt;/li&gt;
+&lt;li&gt;支持表单和表单的验证；&lt;/li&gt;
+&lt;li&gt;能将逻辑代码关联到相关的DOM元素上；&lt;/li&gt;
+&lt;li&gt;能将HTML分组成可重用的组件。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AngularJS vs. React</title>
+      <link>https://satisfied1.github.io/post/AngularJSvsReact/</link>
+      <pubDate>Wed, 07 Dec 2016 15:13:44 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/AngularJSvsReact/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;http://blog.backand.com/angularjs-vs-react/&#34;&gt;英文原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;最近,网页的发展变得越来越快.几乎每个月都会有一个新的javascript框架被宣传和理解它们的功能可能引起的麻烦.在这短短的系列,我们来看一下一些前端的javascript框架,并将它们和AngularJS做一下比较.我们简短的介绍一下每个框架的历史,并在功能方面做一下比较.在这篇文章里面,我们来看一下React相对于Angular来说,它在网页开发方面采取怎么样的措施.&lt;/p&gt;
+
+&lt;h3 id=&#34;react简介&#34;&gt;React简介&lt;/h3&gt;
+
+&lt;p&gt;React是脸谱开发的一种JavaScript框架，它的唯一目标就是构建高性能的用户接口。开发React就是为了解决其他JavaScript框架都未能解决的一个问题-高效地渲染大型数据集。它采用了虚拟文档对象模型(DOM)和拼接机制，这样，每一次对网页做了更改后，React就只更新与更改相关的部分，而不需要重新对整个站点进行渲染。&lt;/p&gt;
+
+&lt;h3 id=&#34;不固执己见&#34;&gt;不固执己见&lt;/h3&gt;
+
+&lt;p&gt;通常认为Angular是一种“固执己见”的框架。意思就是AngularJS的开发者认为一个“好的”应用前端架构就应改像AngularJS这样，他们也在AngularJS的核心也采用的是这样的架构。因此，当你的应用满足上面所说的限制的话，Angular就运行的非常良好。然而，如果你发现你的应用框架构与Angular所期望的架构相差很大，那么你会感觉到非常痛苦。相比之下，React并不打算给你提供一个适合你编码的理想架构。它让你减少要装载的组件，降低装载时间，让你更加自由地管理数据的表现形式。&lt;/p&gt;
+
+&lt;h3 id=&#34;模版&#34;&gt;模版&lt;/h3&gt;
+
+&lt;p&gt;Angular的指令（Directive）用于数据驱动显示，通过它来编写显示模版相当容易，这是使用Angular的一大好处。当你为数据构建UI时，使用Angular是非常直接的。对于数据展现而言，只要放弃对某些环节的控制，你就能以一种更直观的方式，给用户界面带来更少的代码以及“显而易见”的感觉。然而，React趋向于由你提供自定义函数来驱动数据的展现。这通常意味着，在数据被通过代码融入DOM前，你得自己定义你的数据将如何被展现。这使得在尝试决定某个元素具体该如何被渲染时，逻辑上会出现一定的断层。&lt;/p&gt;
+
+&lt;h3 id=&#34;性能&#34;&gt;性能&lt;/h3&gt;
+
+&lt;p&gt;虽然Angular的数据的表达能够非常紧凑, 但是渲染大型数据集依旧被证明是一个痛点. 由于双向数据绑定需要监听每一个可变元素, 数据量变大就会带来显著的性能问题. React, 在另一方面, 使用虚拟DOM来跟踪元素的变化. 当检测到变化时, React会构建一个针对DOM变化的补丁, 然后应用这些补丁. 由于不必在每个元素每次变化时重新渲染整个巨大的table, React相对于其他JavaScript框架有显著的性能提升.&lt;/p&gt;
+
+&lt;h3 id=&#34;应用架构&#34;&gt;应用架构&lt;/h3&gt;
+
+&lt;p&gt;AngularJS和React还有一个不同点在于它们所选择的架构. 最初AngularJS使用了MVC(模型-视图-控制器)模式构建, 然后逐渐演化成了MVVM(模型-视图-视图模型)-MVC混合架构. React却是另一方面, 它的关注点只在MVC模型的&amp;rdquo;V&amp;rdquo;上 – 它被设计用来展现数据, 而将其他方面交由应用架构中编程人员选择的其他组件负责. 有一件值得注意的有趣的事是, 由于这样的架构选型, AngularJS的某些棘手的组件完全可以通过React来增强.&lt;/p&gt;
+
+&lt;h3 id=&#34;结论&#34;&gt;结论&lt;/h3&gt;
+
+&lt;p&gt;在为你的应用选择JavaScript框架时，要考虑每个框架的优势和劣势，这需要对相关的知识有深入的了解。正如上文所述，如果应用时常要处理大量的动态数据集，并以相对简便和高性能的方式对大型数据表进行显示和变更，React是相当不错的选择。但是React不像AngularJS那样包含完整的功能，举例来说，React没有负责数据展现的控制器（Controller）层。总而言之，在AngularJS和React之间做出选择意味着回答一个看似简单的问题：为了解决应用潜在的性能问题，是否值得你去花精力学习和使用React？或者说，是否可能将React的组件（Component）在AngularJS中实现（当然这样会使得架构整体变得冗余）[译者注：AngularJS中的指令和React的组件扮演着类似的角色]？要回答这个问题并不容易，你要根据具体的应用场景来做出决定。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AngularJS数据双向绑定揭秘</title>
+      <link>https://satisfied1.github.io/post/Angular%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%8F%AD%E7%A7%98/</link>
+      <pubDate>Wed, 07 Dec 2016 15:13:44 +0800</pubDate>
+      
+      <guid>https://satisfied1.github.io/post/Angular%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%8F%AD%E7%A7%98/</guid>
+      <description>&lt;p&gt;AngularJS在$scope变量中使用脏值检查来实现了数据双向绑定。和Ember.js数据双向绑定中动态设施setter和getter不同，脏治检查允许AngularJS监视那些存在或者不存在的变量。&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch( watchExp, listener, objectEquality );
+为了监视一个变量的变化，你可以使用$scope.$watch函数。这个函数有三个参数，它指明了”要观察什么”(watchExp)，”在变化时要发生什么”(listener),以及你要监视的是一个变量还是一个对象。当我们在检查一个参数时，我们可以忽略第三个参数。例如下面的例子：&lt;/p&gt;
+
+&lt;p&gt;$scope.name = &amp;lsquo;Ryan&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch( function( ) {
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(&amp;lsquo;$scope.name was updated!&amp;rsquo;);
+} );
+AngularJS将会在$scope中注册你的监视函数。你可以在控制台中输出$scope来查看$scope中的注册项目。&lt;/p&gt;
+
+&lt;p&gt;你可以在控制台中看到$scope.name已经发生了变化 – 这是因为$scope.name之前的值似乎undefined而现在我们将它赋值为Ryan!&lt;/p&gt;
+
+&lt;p&gt;对于$wach的第一个参数，你也可以使用一个字符串。这和提供一个函数完全一样。在AngularJS的源代码中可以看到，如果你使用了一个字符串，将会运行下面的代码：&lt;/p&gt;
+
+&lt;p&gt;if (typeof watchExp == &amp;lsquo;string&amp;rsquo; &amp;amp;&amp;amp; get.constant) {
+  var originalFn = watcher.fn;
+  watcher.fn = function(newVal, oldVal, scope) {
+    originalFn.call(this, newVal, oldVal, scope);
+    arrayRemove(array, watcher);
+  };
+}
+这将会把我们的watchExp设置为一个函数，它也自动返回作用域中我们已经制定了名字的变量。&lt;/p&gt;
+
+&lt;p&gt;$$watchers&lt;/p&gt;
+
+&lt;p&gt;$scope中的$$watchers变量保存着我们定义的所有的监视器。如果你在控制台中查看$$watchers，你会发现它是一个对象数组。&lt;/p&gt;
+
+&lt;p&gt;$$watchers = [
+    {
+        eq: false, // 表明我们是否需要检查对象级别的相等
+        fn: function( newValue, oldValue ) {}, // 这是我们提供的监听器函数
+        last: &amp;lsquo;Ryan&amp;rsquo;, // 变量的最新值
+        exp: function(){}, // 我们提供的watchExp函数
+        get: function(){} // Angular&amp;rsquo;s编译后的watchExp函数
+    }
+];
+$watch函数将会返回一个deregisterWatch函数。这意味着如果我们使用$scope.$watch对一个变量进行监视，我们也可以在以后通过调用某个函数来停止监视。&lt;/p&gt;
+
+&lt;p&gt;$scope.$apply&lt;/p&gt;
+
+&lt;p&gt;当一个控制器/指令/等等东西在AngularJS中运行时，AngularJS内部会运行一个叫做$scope.$apply的函数。这个$apply函数会接收一个函数作为参数并运行它，在这之后才会在rootScope上运行$digest函数。&lt;/p&gt;
+
+&lt;p&gt;AngularJS的$apply函数代码如下所示：&lt;/p&gt;
+
+&lt;p&gt;$apply: function(expr) {
+    try {
+      beginPhase(&amp;lsquo;$apply&amp;rsquo;);
+      return this.$eval(expr);
+    } catch (e) {
+      $exceptionHandler(e);
+    } finally {
+      clearPhase();
+      try {
+        $rootScope.$digest();
+      } catch (e) {
+        $exceptionHandler(e);
+        throw e;
+      }
+    }
+}
+上面代码中的expr参数就是你在调用$scope.$apply()时传递的参数 – 但是大多数时候你可能都不会去使用$apply这个函数，要用的时候记得给它传递一个参数。&lt;/p&gt;
+
+&lt;p&gt;下面我们来看看ng-keydown是怎么来使用$scope.$apply的。为了注册这个指令，AngularJS会使用下面的代码。&lt;/p&gt;
+
+&lt;p&gt;var ngEventDirectives = {};
+forEach(
+  &amp;lsquo;click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste&amp;rsquo;.split(&amp;rsquo; &amp;lsquo;),
+  function(name) {
+    var directiveName = directiveNormalize(&amp;lsquo;ng-&amp;rsquo; + name);
+    ngEventDirectives[directiveName] = [&amp;lsquo;$parse&amp;rsquo;, function($parse) {
+      return {
+        compile: function($element, attr) {
+          var fn = $parse(attr[directiveName]);
+          return function ngEventHandler(scope, element) {
+            element.on(lowercase(name), function(event) {
+              scope.$apply(function() {
+                fn(scope, {$event:event});
+              });
+            });
+          };
+        }
+      };
+    }];
+  }
+);
+上面的代码做的事情是循环了不同的类型的事件，这些事件在之后可能会被触发并创建一个叫做ng-[某个事件]的新指令。在指令的compile函数中，它在元素上注册了一个事件处理器，它和指令的名字一一对应。当事件被出发时，AngularJS就会运行scope.$apply函数，并让它运行一个函数。&lt;/p&gt;
+
+&lt;p&gt;只是单向数据绑定吗？&lt;/p&gt;
+
+&lt;p&gt;上面所说的ng-keydown只能够改变和元素值相关联的$scope中的值 – 这只是单项数据绑定。这也是这个指令叫做ng-keydown的原因，只有在keydown事件被触发时，能够给与我们一个新值。&lt;/p&gt;
+
+&lt;p&gt;但是我们想要的是双向数据绑定！&lt;/p&gt;
+
+&lt;p&gt;我们现在来看一看ng-model。当你在使用ng-model时，你可以使用双向数据绑定 – 这正是我们想要的。AngularJS使用$scope.$watch（视图到模型）以及$scope.$apply（模型到视图）来实现这个功能。&lt;/p&gt;
+
+&lt;p&gt;ng-model会把事件处理指令(例如keydown)绑定到我们运用的输入元素上 – 这就是$scope.$apply被调用的地方！而$scope.$watch是在指令的控制器中被调用的。你可以在下面代码中看到这一点：&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch(function ngModelWatch() {
+    var value = ngModelGet($scope);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//如果作用域模型值和ngModel值没有同步
+if (ctrl.$modelValue !== value) {
+
+    var formatters = ctrl.$formatters,
+        idx = formatters.length;
+
+    ctrl.$modelValue = value;
+    while(idx--) {
+        value = formatters[idx](value);
+    }
+
+    if (ctrl.$viewValue !== value) {
+        ctrl.$viewValue = value;
+        ctrl.$render();
+    }
+}
+
+return value;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+如果你在调用$scope.$watch时只为它传递了一个参数，无论作用域中的什么东西发生了变化，这个函数都会被调用。在ng-model中，这个函数被用来检查模型和视图有没有同步，如果没有同步，它将会使用新值来更新模型数据。这个函数会返回一个新值，当它在$digest函数中运行时，我们就会知道这个值是什么！&lt;/p&gt;
+
+&lt;p&gt;为什么我们的监听器没有被触发？&lt;/p&gt;
+
+&lt;p&gt;如果我们在$scope.$watch的监听器函数中停止这个监听，即使我们更新了$scope.name，该监听器也不会被触发。&lt;/p&gt;
+
+&lt;p&gt;正如前面所提到的，AngularJS将会在每一个指令的控制器函数中运行$scope.$apply。如果我们查看$scope.$apply函数的代码，我们会发现它只会在控制器函数已经开始被调用之后才会运行$digest函数 – 这意味着如果我们马上停止监听，$scope.$watch函数甚至都不会被调用！但是它究竟是怎样运行的呢？&lt;/p&gt;
+
+&lt;p&gt;$digest函数将会在$rootScope中被$scope.$apply所调用。它将会在$rootScope中运行digest循环，然后向下遍历每一个作用域并在每个作用域上运行循环。在简单的情形中，digest循环将会触发所有位于$$watchers变量中的所有watchExp函数，将它们和最新的值进行对比，如果值不相同，就会触发监听器。&lt;/p&gt;
+
+&lt;p&gt;当digest循环运行时，它将会遍历所有的监听器然后再次循环，只要这次循环发现了”脏值”，循环就会继续下去。如果watchExp的值和最新的值不相同，那么这次循环就会被认为发现了脏值。理想情况下它会运行一次，如果它运行超10次，你会看到一个错误。&lt;/p&gt;
+
+&lt;p&gt;因此当$scope.$apply运行的时候，$digest也会运行，它将会循环遍历$$watchers，只要发现watchExp和最新的值不相等，变化触发事件监听器。在AngularJS中，只要一个模型的值可能发生变化，$scope.$apply就会运行。这就是为什么当你在AngularJS之外更新$scope时，例如在一个setTimeout函数中，你需要手动去运行$scope.$apply()：这能够让AngularJS意识到它的作用域发生了变化。&lt;/p&gt;
+
+&lt;p&gt;创建自己的脏值检查&lt;/p&gt;
+
+&lt;p&gt;到此为止，我们已经可以来创建一个小巧的，简化版本的脏值检查了。当然，相比较之下，AngularJS中实现的脏值检查要更加先进一些，它提供疯了异步队列以及其他一些高级功能。&lt;/p&gt;
+
+&lt;p&gt;设置Scope&lt;/p&gt;
+
+&lt;p&gt;Scope仅仅只是一个函数，它其中包含任何我们想要存储的对象。我们可以扩展这个函数的原型对象来复制$digest和$watch。我们不需要$apply方法，因为我们不需要在作用域的上下文中执行任何函数 – 我们只需要简单的使用$digest。我们的Scope的代码如下所示：&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( ) {&lt;/p&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {&lt;/p&gt;
+
+&lt;p&gt;};
+我们的$watch函数需要接受两个参数，watchExp和listener。当$watch被调用时，我们需要将它们push进入到Scope的$$watcher数组中。&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {&lt;/p&gt;
+
+&lt;p&gt;};
+你可能已经注意到了，如果没有提供listener，我们会将listener设置为一个空函数 – 这样一来我们可以$watch所有的变量。&lt;/p&gt;
+
+&lt;p&gt;接下来我们将会创建$digest。我们需要来检查旧值是否等于新的值，如果二者不相等，监听器就会被触发。我们会一直循环这个过程，直到二者相等。这就是”脏值”的来源 – 脏值意味着新的值和旧的值不相等！&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {
+    var dirty;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;do {
+        dirty = false;
+
+        for( var i = 0; i &amp;lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};
+接下来，我们将创建一个作用域的实例。我们将这个实例赋值给$scope。我们接着会注册一个监听函数，在更新$scope之后运行$digest！&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {
+    var dirty;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;do {
+        dirty = false;
+
+        for( var i = 0; i &amp;lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;var $scope = new Scope();&lt;/p&gt;
+
+&lt;p&gt;$scope.name = &amp;lsquo;Ryan&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch(function(){
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(newValue, oldValue);
+} );&lt;/p&gt;
+
+&lt;p&gt;$scope.$digest();
+成功了！我们现在已经实现了脏值检查(虽然这是最简单的形式)！上述代码将会在控制台中输出下面的内容：&lt;/p&gt;
+
+&lt;p&gt;Ryan undefined
+这正是我们想要的结果 – $scope.name之前的值是undefined，而现在的值是Ryan。&lt;/p&gt;
+
+&lt;p&gt;现在我们把$digest函数绑定到一个input元素的keyup事件上。这就意味着我们不需要自己去调用$digest。这也意味着我们现在可以实现双向数据绑定！&lt;/p&gt;
+
+&lt;p&gt;var Scope = function( ) {
+    this.$$watchers = [];&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$watch = function( watchExp, listener ) {
+    this.$$watchers.push( {
+        watchExp: watchExp,
+        listener: listener || function() {}
+    } );
+};&lt;/p&gt;
+
+&lt;p&gt;Scope.prototype.$digest = function( ) {
+    var dirty;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;do {
+        dirty = false;
+
+        for( var i = 0; i &amp;lt; this.$$watchers.length; i++ ) {
+            var newValue = this.$$watchers[i].watchExp(),
+                oldValue = this.$$watchers[i].last;
+
+            if( oldValue !== newValue ) {
+                this.$$watchers[i].listener(newValue, oldValue);
+
+                dirty = true;
+
+                this.$$watchers[i].last = newValue;
+            }
+        }
+} while(dirty);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;var $scope = new Scope();&lt;/p&gt;
+
+&lt;p&gt;$scope.name = &amp;lsquo;Ryan&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;var element = document.querySelectorAll(&amp;lsquo;input&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;element[0].onkeyup = function() {
+    $scope.name = element[0].value;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$scope.$digest();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;$scope.$watch(function(){
+    return $scope.name;
+}, function( newValue, oldValue ) {
+    console.log(&amp;lsquo;Input value updated - it is now &amp;rsquo; + newValue);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;element[0].value = $scope.name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;} );&lt;/p&gt;
+
+&lt;p&gt;var updateScopeValue = function updateScopeValue( ) {
+    $scope.name = &amp;lsquo;Bob&amp;rsquo;;
+    $scope.$digest();
+};
+使用上面的代码，无论何时我们改变了input的值，$scope中的name属性都会相应的发生变化。这就是隐藏在AngularJS神秘外衣之下数据双向绑定的秘密！&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ryanclark.me/how-angularjs-implements-dirty-checking&#34;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
