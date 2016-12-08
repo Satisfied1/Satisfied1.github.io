@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Angular数据绑定 - 前端天地</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="A material design theme for documentations.">
+    
+    <link rel="canonical" href="https://satisfied1.github.io/post/Angular%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/">
+    
+    <meta name="author" content="satisfied">
+    
+
+    <meta property="og:url" content="https://satisfied1.github.io/post/Angular%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/">
+    <meta property="og:title" content="前端天地">
+    <meta property="og:image" content="https://satisfied1.github.io/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="前端天地">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://satisfied1.github.io/fonts/icon.eot?52m981');
+        src: url('https://satisfied1.github.io/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://satisfied1.github.io/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://satisfied1.github.io/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://satisfied1.github.io/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/application.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://satisfied1.github.io/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Angular数据绑定
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/Satisfied1" title="@Satisfied1 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/Satisfied1/Satisfied1.github.io" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://satisfied1.github.io/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>前端天地 <span class="version">1.0.0</span></strong>
+        
+          <br>
+          Satisfied1/Satisfied1.github.io
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="首页" href="https://Satisfied1.github.io/">
+	
+	首页
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+        <ul id="all-tags">
+          
+            <li><a href="https://Satisfied1.github.io/tags/angularjs">angularjs</a></li>
+          
+            <li><a href="https://Satisfied1.github.io/tags/html5">html5</a></li>
+          
+        </ul>
+
+        
+        <hr>
+        <span class="section">作者</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/Satisfied1" target="_blank" title="@Satisfied1 on GitHub">
+              @Satisfied1 on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:13262631093@163.com" title="Email of 13262631093@163.com">
+              联系我
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Angular数据绑定 </h1>
+
+			<p>Angular沉思录</p>
+
+<p>接触AngularJS已经两年多了，时常问自己一些问题，如果是我实现它，会在哪些方面选择跟它相同的道路，哪些方面不同。为此，记录了一些思考，给自己回顾，也供他人参考。</p>
+
+<p>初步大致有以下几个方面：</p>
+
+<p>数据双向绑定
+视图模型的继承关系
+模块和依赖注入的设计
+待定
+数据的双向绑定</p>
+
+<p>Angular实现了双向绑定机制。所谓的双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。</p>
+
+<p>一个最简单的示例就是这样：</p>
+
+<p><div ng-controller="CounterCtrl">
+    <span ng-bind="counter"></span>
+    <button ng-click="counter=counter+1">increase</button>
+</div>
+function CounterCtrl($scope) {
+    $scope.counter = 1;
+}
+这个例子很简单，毫无特别之处，每当点击一次按钮，界面上的数字就增加一。</p>
+
+<p>绑定数据是怎样生效的</p>
+
+<p>初学AngularJS的人可能会踩到这样的坑，假设有一个指令：</p>
+
+<p>var app = angular.module(&ldquo;test&rdquo;, []);</p>
+
+<p>app.directive(&ldquo;myclick&rdquo;, function() {
+    return function (scope, element, attr) {
+        element.on(&ldquo;click&rdquo;, function() {
+            scope.counter++;
+        });
+    };
+});</p>
+
+<p>app.controller(&ldquo;CounterCtrl&rdquo;, function($scope) {
+    $scope.counter = 0;
+});
+<body ng-app="test">
+    <div ng-controller="CounterCtrl">
+        <button myclick>increase</button>
+        <span ng-bind="counter"></span>
+    </div>
+</body>
+这个时候，点击按钮，界面上的数字并不会增加。很多人会感到迷惑，因为他查看调试器，发现数据确实已经增加了，Angular不是双向绑定吗，为什么数据变化了，界面没有跟着刷新？</p>
+
+<p>试试在scope.counter++;这句之后加一句scope.digest();再看看是不是好了？</p>
+
+<p>为什么要这么做呢，什么情况下要这么做呢？我们发现第一个例子中并没有digest，而且，如果你写了digest，它还会抛出异常，说正在做其他的digest，这是怎么回事？</p>
+
+<p>我们先想想，假如没有AngularJS，我们想要自己实现这么个功能，应该怎样？</p>
+
+<p>&lt;!DOCTYPE html&gt;
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>two-way binding</title>
+    </head>
+    <body onload="init()">
+        <button ng-click="inc">
+            increase 1
+        </button>
+        <button ng-click="inc2">
+            increase 2
+        </button>
+        <span style="color:red" ng-bind="counter"></span>
+        <span style="color:blue" ng-bind="counter"></span>
+        <span style="color:green" ng-bind="counter"></span></p>
+
+<pre><code>    &lt;script type=&quot;text/javascript&quot;&gt;
+        /* 数据模型区开始 */
+        var counter = 0;
+
+        function inc() {
+            counter++;
+        }
+
+        function inc2() {
+            counter+=2;
+        }
+        /* 数据模型区结束 */
+
+        /* 绑定关系区开始 */
+        function init() {
+            bind();
+        }
+
+        function bind() {
+            var list = document.querySelectorAll(&quot;[ng-click]&quot;);
+            for (var i=0; i&lt;list.length; i++) {
+                list[i].onclick = (function(index) {
+                    return function() {
+                        window[list[index].getAttribute(&quot;ng-click&quot;)]();
+                        apply();
+                    };
+                })(i);
+            }
+        }
+
+        function apply() {
+            var list = document.querySelectorAll(&quot;[ng-bind='counter']&quot;);
+            for (var i=0; i&lt;list.length; i++) {
+                list[i].innerHTML = counter;
+            }
+        }
+        /* 绑定关系区结束 */
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p></html>
+可以看到，在这么一个简单的例子中，我们做了一些双向绑定的事情。从两个按钮的点击到数据的变更，这个很好理解，但我们没有直接使用DOM的onclick方法，而是搞了一个ng-click，然后在bind里面把这个ng-click对应的函数拿出来，绑定到onclick的事件处理函数中。为什么要这样呢？因为数据虽然变更了，但是还没有往界面上填充，我们需要在此做一些附加操作。</p>
+
+<p>从另外一个方面看，当数据变更的时候，需要把这个变更应用到界面上，也就是那三个span里。但由于Angular使用的是脏检测，意味着当改变数据之后，你自己要做一些事情来触发脏检测，然后再应用到这个数据对应的DOM元素上。问题就在于，怎样触发脏检测？什么时候触发？</p>
+
+<p>我们知道，一些基于setter的框架，它可以在给数据设值的时候，对DOM元素上的绑定变量作重新赋值。脏检测的机制没有这个阶段，它没有任何途径在数据变更之后立即得到通知，所以只能在每个事件入口中手动调用apply()，把数据的变更应用到界面上。在真正的Angular实现中，这里先进行脏检测，确定数据有变化了，然后才对界面设值。</p>
+
+<p>所以，我们在ng-click里面封装真正的click，最重要的作用是为了在之后追加一次apply()，把数据的变更应用到界面上去。</p>
+
+<p>那么，为什么在ng-click里面调用$digest的话，会报错呢？因为Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest，当前的还没有走完，所以就出错了。</p>
+
+<p>$digest和$apply</p>
+
+<p>在Angular中，有$apply和$digest两个函数，我们刚才是通过$digest来让这个数据应用到界面上。但这个时候，也可以不用$digest，而是使用$apply，效果是一样的，那么，它们的差异是什么呢？</p>
+
+<p>最直接的差异是，$apply可以带参数，它可以接受一个函数，然后在应用数据之后，调用这个函数。所以，一般在集成非Angular框架的代码时，可以把代码写在这个里面调用。</p>
+
+<p>var app = angular.module(&ldquo;test&rdquo;, []);</p>
+
+<p>app.directive(&ldquo;myclick&rdquo;, function() {
+    return function (scope, element, attr) {
+        element.on(&ldquo;click&rdquo;, function() {
+            scope.counter++;
+            scope.$apply(function() {
+                scope.counter++;
+            });
+        });
+    };
+});</p>
+
+<p>app.controller(&ldquo;CounterCtrl&rdquo;, function($scope) {
+    $scope.counter = 0;
+});
+除此之外，还有别的区别吗？</p>
+
+<p>在简单的数据模型中，这两者没有本质差别，但是当有层次结构的时候，就不一样了。考虑到有两层作用域，我们可以在父作用域上调用这两个函数，也可以在子作用域上调用，这个时候就能看到差别了。</p>
+
+<p>对于$digest来说，在父作用域和子作用域上调用是有差别的，但是，对于$apply来说，这两者一样。我们来构造一个特殊的示例：</p>
+
+<p>var app = angular.module(&ldquo;test&rdquo;, []);</p>
+
+<p>app.directive(&ldquo;increasea&rdquo;, function() {
+    return function (scope, element, attr) {
+        element.on(&ldquo;click&rdquo;, function() {
+            scope.a++;
+            scope.$digest();
+        });
+    };
+});</p>
+
+<p>app.directive(&ldquo;increaseb&rdquo;, function() {
+    return function (scope, element, attr) {
+        element.on(&ldquo;click&rdquo;, function() {
+            scope.b++;
+            scope.$digest();    //这个换成$apply即可
+        });
+    };
+});</p>
+
+<p>app.controller(&ldquo;OuterCtrl&rdquo;, [&ldquo;$scope&rdquo;, function($scope) {
+    $scope.a = 1;</p>
+
+<pre><code>$scope.$watch(&quot;a&quot;, function(newVal) {
+    console.log(&quot;a:&quot; + newVal);
+});
+
+$scope.$on(&quot;test&quot;, function(evt) {
+    $scope.a++;
+});
+</code></pre>
+
+<p>}]);</p>
+
+<p>app.controller(&ldquo;InnerCtrl&rdquo;, [&ldquo;$scope&rdquo;, function($scope) {
+    $scope.b = 2;</p>
+
+<pre><code>$scope.$watch(&quot;b&quot;, function(newVal) {
+    console.log(&quot;b:&quot; + newVal);
+    $scope.$emit(&quot;test&quot;, newVal);
+});
+</code></pre>
+
+<p>}]);
+<div ng-app="test">
+    <div ng-controller="OuterCtrl">
+        <div ng-controller="InnerCtrl">
+            <button increaseb>increase b</button>
+            <span ng-bind="b"></span>
+        </div>
+        <button increasea>increase a</button>
+        <span ng-bind="a"></span>
+    </div>
+</div>
+这时候，我们就能看出差别了，在increase b按钮上点击，这时候，a跟b的值其实都已经变化了，但是界面上的a没有更新，直到点击一次increase a，这时候刚才对a的累加才会一次更新上来。怎么解决这个问题呢？只需在increaseb这个指令的实现中，把$digest换成$apply即可。</p>
+
+<p>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</p>
+
+<p>因此，从性能上讲，如果能确定自己作的这个数据变更所造成的影响范围，应当尽量调用$digest，只有当无法精确知道数据变更造成的影响范围时，才去用$apply，很暴力地遍历整个作用域树，调用其中所有的监控。</p>
+
+<p>从另外一个角度，我们也可以看到，为什么调用外部框架的时候，是推荐放在$apply中，因为只有这个地方才是对所有数据变更都应用的地方，如果用$digest，有可能临时丢失数据变更。</p>
+
+<p>脏检测的利弊</p>
+
+<p>很多人对Angular的脏检测机制感到不屑，推崇基于setter，getter的观测机制，在我看来，这只是同一个事情的不同实现方式，并没有谁完全胜过谁，两者是各有优劣的。</p>
+
+<p>大家都知道，在循环中批量添加DOM元素的时候，会推荐使用DocumentFragment，为什么呢，因为如果每次都对DOM产生变更，它都要修改DOM树的结构，性能影响大，如果我们能先在文档碎片中把DOM结构创建好，然后整体添加到主文档中，这个DOM树的变更就会一次完成，性能会提高很多。</p>
+
+<p>同理，在Angular框架里，考虑到这样的场景：</p>
+
+<p>function TestCtrl($scope) {
+    $scope.numOfCheckedItems = 0;</p>
+
+<pre><code>var list = [];
+
+for (var i=0; i&lt;10000; i++) {
+    list.push({
+        index: i,
+        checked: false
+    });
+}
+
+$scope.list = list;
+
+$scope.toggleChecked = function(flag) {
+    for (var i=0; i&lt;list.length; i++) {
+        list[i].checked = flag;
+        $scope.numOfCheckedItems++;
+    }
+};
+</code></pre>
+
+<p>}
+如果界面上某个文本绑定这个numOfCheckedItems，会怎样？在脏检测的机制下，这个过程毫无压力，一次做完所有数据变更，然后整体应用到界面上。这时候，基于setter的机制就惨了，除非它也是像Angular这样把批量操作延时到一次更新，否则性能会更低。</p>
+
+<p>所以说，两种不同的监控方式，各有其优缺点，最好的办法是了解各自使用方式的差异，考虑出它们性能的差异所在，在不同的业务场景中，避开最容易造成性能瓶颈的用法。</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://satisfied1.github.io/post/angular%E8%A7%86%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%B1%82%E6%AC%A1/" title="angular视图模型层次">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              angular视图模型层次
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://satisfied1.github.io/post/rem/" title="rem布局">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              rem布局
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/satisfied1.github.io\/';
+      var repo_id  = 'Satisfied1\/Satisfied1.github.io';
+    
+    </script>
+
+    <script src="https://satisfied1.github.io/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

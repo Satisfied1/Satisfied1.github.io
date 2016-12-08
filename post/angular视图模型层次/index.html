@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>angular视图模型层次 - 前端天地</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="A material design theme for documentations.">
+    
+    <link rel="canonical" href="https://satisfied1.github.io/post/angular%E8%A7%86%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%B1%82%E6%AC%A1/">
+    
+    <meta name="author" content="satisfied">
+    
+
+    <meta property="og:url" content="https://satisfied1.github.io/post/angular%E8%A7%86%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%B1%82%E6%AC%A1/">
+    <meta property="og:title" content="前端天地">
+    <meta property="og:image" content="https://satisfied1.github.io/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="前端天地">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://satisfied1.github.io/fonts/icon.eot?52m981');
+        src: url('https://satisfied1.github.io/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://satisfied1.github.io/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://satisfied1.github.io/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://satisfied1.github.io/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/application.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://satisfied1.github.io/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        angular视图模型层次
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/Satisfied1" title="@Satisfied1 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/Satisfied1/Satisfied1.github.io" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://satisfied1.github.io/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>前端天地 <span class="version">1.0.0</span></strong>
+        
+          <br>
+          Satisfied1/Satisfied1.github.io
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="首页" href="https://Satisfied1.github.io/">
+	
+	首页
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+        <ul id="all-tags">
+          
+            <li><a href="https://Satisfied1.github.io/tags/angularjs">angularjs</a></li>
+          
+            <li><a href="https://Satisfied1.github.io/tags/html5">html5</a></li>
+          
+        </ul>
+
+        
+        <hr>
+        <span class="section">作者</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/Satisfied1" target="_blank" title="@Satisfied1 on GitHub">
+              @Satisfied1 on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:13262631093@163.com" title="Email of 13262631093@163.com">
+              联系我
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>angular视图模型层次 </h1>
+
+			<p>视图模型的层次</p>
+
+<p>嵌套作用域的数据继承</p>
+
+<p>在Angular中，存在作用域的继承。所谓作用域的继承，是指：如果两个视图有包含关系，内层视图对应的作用域可以共享外层视图作用域的数据。比如说：</p>
+
+<p><body ng-app="test">
+    <div ng-controller="OuterCtrl">
+        <span ng-bind="a"></span>
+        <div ng-controller="InnerCtrl">
+            <span ng-bind="a"></span>
+            <span ng-bind="b"></span>
+        </div>
+    </div>
+</body>
+var app = angular.module(&ldquo;test&rdquo;, []);</p>
+
+<p>app.controller(&ldquo;OuterCtrl&rdquo;, function ($scope) {
+    $scope.a = 1;
+});</p>
+
+<p>app.controller(&ldquo;InnerCtrl&rdquo;, function ($scope) {
+    $scope.b = 100;
+});
+内层的这个div上，一样也可以绑定变量a，因为在Angular内部，InnerCtrl的实例的原型会被设置为OuterCtrl的实例。</p>
+
+<p>我们改变一下这个示例，如果在内层作用域上，对a进行赋值会怎样？</p>
+
+<p><body ng-app="test">
+    <div ng-controller="OuterCtrl">
+        <span ng-bind="a"></span>
+        <div ng-controller="InnerCtrl">
+            <span ng-bind="a"></span>
+            <span ng-bind="b"></span>
+            <button ng-click="increasea()">increase a</button>
+        </div>
+    </div>
+</body>
+var app = angular.module(&ldquo;test&rdquo;, []);</p>
+
+<p>app.controller(&ldquo;OuterCtrl&rdquo;, function ($scope) {
+    $scope.a = 1;
+});</p>
+
+<p>app.controller(&ldquo;InnerCtrl&rdquo;, function ($scope) {
+    $scope.b = 100;</p>
+
+<pre><code>$scope.increasea = function() {
+    $scope.a++;
+};
+</code></pre>
+
+<p>});
+点击这个按钮的时候，发现了一个问题，内层有了a，而且值在增加，外层的不变了。这是为什么呢？</p>
+
+<p>因为它其实是通过原型集成来做到这样的。像上面这样的包含关系，内层scope的prototype被自动设置为外层的scope了，所以，才可以在内层使用这个a。这时候在内层给a赋值，当然就赋到它自己上了，不会赋值到原型的那个对象上。</p>
+
+<p>同理，如果内外两层作用域上存在同名变量，在内层界面赋值的时候只会赋到内层作用域上的那个变量，不会影响到外层的。</p>
+
+<p>那么，除了显式的ng-controller，Angular还会在什么地方引入视图模型的继承呢，主要是这些：</p>
+
+<p>数组和对象属性的迭代</p>
+
+<p>在Angular里面，有ng-repeat指令，可以用于遍历数组元素、对象属性。</p>
+
+<p><ul>
+    <li ng-repeat="member in members">{{member.name}}</li>
+</ul>
+单从这个片段看，看不出视图继承的意义。我们把这个例子再拓展一下：</p>
+
+<p><ul>
+    <li ng-repeat="member in members">{{member.name}} in {{teamname}}</li>
+</ul>
+它对应的视图模型是这么个结构：</p>
+
+<p>function TeamCtrl($scope) {
+    $scope.teamname = &ldquo;Disney&rdquo;;</p>
+
+<pre><code>$scope.members = [
+    {name: &quot;Tom Cat&quot;},
+    {name: &quot;Jerry Mouse&quot;},
+    {name: &quot;Donald Duck&quot;},
+    {name: &quot;Micky Mouse&quot;}
+];
+</code></pre>
+
+<p>}
+好了，注意到这里，teamname跟members里面的成员其实不在一层作用域，因为它给循环的每个元素都建立了单独的作用域，如果不允许视图模型的继承，在li里面是没法访问到teamname的。为了让这段话更容易理解，我作个转换：</p>
+
+<p>var teamname = &ldquo;Disney&rdquo;;
+var members = [
+    {name: &ldquo;Tom Cat&rdquo;},
+    {name: &ldquo;Jerry Mouse&rdquo;},
+    {name: &ldquo;Donald Duck&rdquo;},
+    {name: &ldquo;Micky Mouse&rdquo;}
+];</p>
+
+<p>for (var i=0; i&lt;members.length; i++) {
+    var member = members[i];
+    console.log(member.name + &ldquo; in &rdquo; + teamname);
+}
+ng-repeat内部给每个循环造了个作用域，如果不这么做，各个member就无法区分开了。在这种情况下，如果没有作用域的继承关系，在循环内，就访问不到这个teamname。</p>
+
+<p>在这里，我觉得不一定非要造子作用域，它搞子作用域的原因无非是为了区分每个循环变量，但其实可以换一种写法，比如，avalon框架里的repeat写法就很好，在属性上指定循环元素变量名，然后给每个元素生成ObjectProxy，包装每个元素的数据，附带$index等有可能在循环过程中访问的东西。</p>
+
+<p>因此，这里其实不必出现Scope的新实例，而是用一个ObjectProxy返回元素数据即可。</p>
+
+<p>很可能我们的场景还有些简单，再来个复杂的：</p>
+
+<p><div ng-controller="TestCtrl">
+    <div ng-repeat="boy in boys">
+        <span style="color:red" ng-bind="boy.name"></span>
+        <span style="color:green" ng-bind="boy.age"></span>
+        <button ng-click="boy.growUP()">grow up</button>
+    </div>
+</div>
+function TestCtrl($scope){
+    $scope.boys = [{
+        name: &ldquo;Tom&rdquo;,
+        age: 5,
+        growUP: function() {
+            this.age ++;
+        }
+    }, {
+        name: &ldquo;Jerry&rdquo;,
+        age: 2,
+        growUP: function() {
+            this.age ++;
+        }
+    }];
+}
+这里，每个boy都能自增自己的年龄，原理与上面相同，这里面growUp方法的调用，用ObjectProxy应当也能处理。</p>
+
+<p>动态包含</p>
+
+<p>另外一个造成视图继承的原因是动态引入界面模板，比如说ng-include和ng-view等。</p>
+
+<p>inner.html</p>
+
+<p><div>
+    <span ng-bind="name"></span>
+</div>
+outer.html</p>
+
+<p><div ng-controller="OuterCtrl">
+    <span ng-bind="name"></span>
+    <div ng-include="'inner.html'"></div>
+</div>
+function OuterCtrl($scope) {
+    $scope.name = &ldquo;outer name&rdquo;;
+}
+对上面这个例子来说，ng-include会创建一层作用域，如果不允许作用域继承，那么内层的HTML中就拿不到name属性。那么，为什么ng-include一定要创建子作用域呢？在这个例子里，创建子作用域并不一定必要，直接让两层HTML模板对应同一个视图模型的实例，不就可以了？</p>
+
+<p>我感觉他可能是为了省事，否则要判断动态include进来的这个HTML片段中，是否还指定了别的控制器，如果不管三七二十一就创建子作用域，这事就省了。ng-view跟ng-include的情况还不一样，因为ng-view可能会在路由里面指定新的控制器，所以判断起来就更复杂了，基本上只能创建新作用域。</p>
+
+<p>视图模型的继承好不好？</p>
+
+<p>视图模型的继承在很多情况下是很方便，但造成问题的可能性也会非常多。真的需要这样的共享机制吗？</p>
+
+<p>大家都知道，组件化是解决开发效率不高的银弹，但具体如何做组件化，人们的看法是五花八门的。Angular提供的控制器，服务，指令等概念，把不同的东西隔离到各自的地方，这是一种很好的组件化思路，但与此同时，界面模板层非常乱。</p>
+
+<p>我们可以理解它的用意：只把界面模板层当作配置文件来使用，压根就不考虑它的可复用性。是啊，反正只用一次，就算我写得乱，又怎样呢？可是在Angular中，界面模板是跟控制器密切相关的。我很怀疑控制器的可重用性，注意，它虽然叫控制器，但其实更应该算视图模型。</p>
+
+<p>从可重用性角度来看，如果满分5分的话，整个应用的这些部分的得分应当是这样：</p>
+
+<p>服务，比如说，对后端RESTful接口的AJAX调用，对本地存储的访问等，5分
+控制器（也就是视图模型），2-3分
+指令，这个要看情况，有的指令是当作对HTML元素体系的扩展来用的，有些是其他事情的
+纯UI类型的指令，也可以算是控件，比如DatetimePicker，5分
+有些用于沟通DOM跟视图模型的指令，2分
+界面模板，这个基本就没有重用性了，1分
+从这里我们可以看到，以可重用度来排序，最有价值的是服务和控件，服务代表着业务逻辑的基本单元，控件代表了UI层的最小单元，所以它们是最值得重用的。</p>
+
+<p>现在来看看中间层：视图模型值得重用吗？还是值得的。比如说，同一视图模型以不同的界面模板来展现，这就是一种很好的方式。如果说，同一个视图模型要支持多个界面模板，这些界面模板使用的模型字段或者方法有差异，也可以考虑在视图模型中取并集。例如：</p>
+
+<p>function TestCtrl($scope) {
+    $scope.counter = 0;</p>
+
+<pre><code>$scope.increase = function() {
+    $scope.counter++;
+};
+
+$scope.decrease = function() {
+    $scope.counter--;
+};
+</code></pre>
+
+<p>}
+1.html</p>
+
+<p><div ng-controller="TestCtrl">
+    <span ng-bind="counter"></span>
+    <button ng-click="increase()">increase</button>
+</div>
+2.html</p>
+
+<p><div ng-controller="TestCtrl">
+    <span ng-bind="counter"></span>
+    <button ng-click="decrease()">decrease</button>
+</div>
+3.html</p>
+
+<p><div ng-controller="TestCtrl">
+    <span ng-bind="counter"></span>
+    <button ng-click="increase()">increase</button>
+    <button ng-click="decrease()">decrease</button>
+</div>
+三个视图的内容是有差异的，但它们仍然共用了同一个视图模型，这个视图模型的内容包含三个视图所能用到的所有属性和方法，每个视图各取所需，互不影响。</p>
+
+<p>这时候，我们再来看视图模型的继承会造成什么影响。如果是我们有了视图模型的继承关系，就意味着界面模板的包含关系必须跟视图模型的继承关系完全一致，这个很大程度上是增加了管理成本的，也造成了视图模型的非通用性。</p>
+
+<p>刚开始提到的例子，如果内外层有同名变量，要在内层作用域中显式变更外层的变量，需要从scope.$parent里面去赋值。而一旦在代码中写了$parent这样的东西，就意味着视图模型只能以这样的方式包含了，甚至说，如果不想变更它们的包含关系，只想变更包含层级，也是不可能的，那说不定就要变成$parent.$parent了。</p>
+
+<p>我们看个场景：</p>
+
+<p><body ng-app="test">
+    <div ng-controller="OuterCtrl">
+        <span ng-bind="a"></span>
+        <div ng-controller="InnerCtrl">
+            <span ng-bind="a"></span>
+            <button ng-click="increaseOuterA()">increase outer a</button>
+        </div>
+    </div>
+</body>
+var app = angular.module(&ldquo;test&rdquo;, []);</p>
+
+<p>app.controller(&ldquo;OuterCtrl&rdquo;, function ($scope) {
+    $scope.a = 1;
+});</p>
+
+<p>app.controller(&ldquo;InnerCtrl&rdquo;, function ($scope) {
+    $scope.a = 100;</p>
+
+<pre><code>$scope.increaseOuterA = function() {
+    $scope.$parent.a++;
+};
+</code></pre>
+
+<p>});
+这里，因为在InnerCtrl中显式调用了$parent，所以它跟OuterCtrl的视图关系就只能非常固定了。如果说，我们这时候把里面这个div提取出来，放在单独的HTML文件中，然后使用ng-view或者ng-include引入它，因为它们本来就要创建一级作用域，所以会导致这个中间又隔了一级，$parent变成了$parent.$parent，非常不好。</p>
+
+<p>代码如下：</p>
+
+<p><body ng-app="test">
+    <div ng-controller="OuterCtrl">
+        <span ng-bind="a"></span>
+        <div ng-include="'inner.html'"></div>
+    </div>
+</body>
+inner.html</p>
+
+<p><div ng-controller="InnerCtrl">
+    <span ng-bind="a"></span>
+    <button ng-click="increaseOuterA()">increase outer a</button>
+</div>
+个人认为，在AngularJS中，视图模型的继承虽然使得很多时候代码写起来比较方便，但有些时候会造成很多麻烦。当编写视图模型代码的时候，应当尽量避免父子作用域存在同名变量的情况，以防止造成隐含的问题。不了解AngularJS实现原理的朋友很可能在这里踩很多坑。</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://satisfied1.github.io/post/angular%E6%A8%A1%E5%9D%97%E6%9C%BA%E5%88%B6/" title="angular模块机制">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              angular模块机制
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://satisfied1.github.io/post/Angular%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/" title="Angular数据绑定">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Angular数据绑定
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/satisfied1.github.io\/';
+      var repo_id  = 'Satisfied1\/Satisfied1.github.io';
+    
+    </script>
+
+    <script src="https://satisfied1.github.io/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

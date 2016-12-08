@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>angular数据绑定与监控 - 前端天地</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="A material design theme for documentations.">
+    
+    <link rel="canonical" href="https://satisfied1.github.io/post/angular%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E4%B8%8E%E7%9B%91%E6%8E%A7/">
+    
+    <meta name="author" content="satisfied">
+    
+
+    <meta property="og:url" content="https://satisfied1.github.io/post/angular%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E4%B8%8E%E7%9B%91%E6%8E%A7/">
+    <meta property="og:title" content="前端天地">
+    <meta property="og:image" content="https://satisfied1.github.io/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="前端天地">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://satisfied1.github.io/fonts/icon.eot?52m981');
+        src: url('https://satisfied1.github.io/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://satisfied1.github.io/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://satisfied1.github.io/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://satisfied1.github.io/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/application.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://satisfied1.github.io/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        angular数据绑定与监控
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/Satisfied1" title="@Satisfied1 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/Satisfied1/Satisfied1.github.io" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://satisfied1.github.io/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>前端天地 <span class="version">1.0.0</span></strong>
+        
+          <br>
+          Satisfied1/Satisfied1.github.io
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="首页" href="https://Satisfied1.github.io/">
+	
+	首页
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+        <ul id="all-tags">
+          
+            <li><a href="https://Satisfied1.github.io/tags/angularjs">angularjs</a></li>
+          
+            <li><a href="https://Satisfied1.github.io/tags/html5">html5</a></li>
+          
+        </ul>
+
+        
+        <hr>
+        <span class="section">作者</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/Satisfied1" target="_blank" title="@Satisfied1 on GitHub">
+              @Satisfied1 on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:13262631093@163.com" title="Email of 13262631093@163.com">
+              联系我
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>angular数据绑定与监控 </h1>
+
+			<p>数据绑定与监控</p>
+
+<p>在业务开发的过程中，我们可能会大量使用DOM操作，这个过程很繁琐，但是有了AngularJS，基本上就可以解脱了，做到这一点的关键是数据绑定。那什么是数据绑定，怎样绑定呢？本节将从多种角度，选取业务开发过程中的各种场景来举例说明。</p>
+
+<p>基于单一模型的界面同步</p>
+
+<p>有时候，我们会有这样的需求，界面上有个输入框，然后有另外一个地方，要把这个文本原样显示出来，如果没有数据绑定，这个代码可能很麻烦了，比如说，我们要监听输入框的各种事件，键盘按键、复制粘贴等等，然后再把取得的值写入对应位置。但是如果有数据绑定，这个事情就非常简单。</p>
+
+<p><input type="text" ng-model="a"/>
+<div>{{a}}</div>
+这么小小一段代码，就实现了我们想要的功能，是不是很可爱？这中间的关键是什么呢，就是变量a，在这里，变量a充当了数据模型的角色，输入框的数据变更会同步到模型上，然后再分发给绑定到这个模型的其他UI元素。</p>
+
+<p>注意，任意绑定到数据模型的输入元素，它的数据变更都会导致模型变更，比如说，我们有另外一个需求，两个输入框，我们想要在任意一个中输入的时候，另外一个的值始终跟它保持同步。如果用传统的方式，需要在两个输入框上都添加事件，但是有了数据绑定之后，这一切都很简单：</p>
+
+<p><input type="text" ng-model="b"/>
+<input type="text" ng-model="b"/>
+这样的代码就可以了，核心要素还是这个数据模型b。</p>
+
+<p>到目前为止的两个例子都很简单，但可能有人有问题要问，因为我们什么js都没有写，这个a跟b是哪里来的，为什么就能起作用呢？对于这个问题，我来作个类比。</p>
+
+<p>比如大家写js，都知道变量可以不声明就使用：</p>
+
+<p>a = 1;
+这时候a被赋值到哪里了呢，到了全局的window对象上，也就是说其实相当于：</p>
+
+<p>window.a = 1;
+在AngularJS里，变量和表达式都附着在一种叫做作用域（scope）的东西上，可以自己声明新的作用域，也可以不声明。每个Angular应用默认会有一个根作用域（$rootScope），凡是没有预先声明的东西，都会被创建到它上面去。</p>
+
+<p>作用域的相关概念，我们会在下一章里面讲述。在这里，我们只需要知道，如果在界面中绑定了未定义的某变量，当它被赋值的时候，就会自动创建到对应的作用域上去。</p>
+
+<p>前面我们在例子中提到的{{}}这种符号，称为插值表达式，这里面的内容将会被动态解析，也可以不使用这种方式来进行绑定，Angular另有一个ng-bind指令用于做这种事情：</p>
+
+<p><input ng-model="a"/>
+<div>{{a}}</div>
+<div ng-bind="a"></div>
+对模型的二次计算</p>
+
+<p>嗯，有时候，实际情况没有这么简单，比如说，我们可能会需要对数据作一点处理，比如，在每个表示价格的数字后面添加一个单位：</p>
+
+<p><input type="number" ng-model="price"/>
+<span>{{price + &ldquo;（元）&rdquo;}}</span>
+当然我们这个例子并不好，因为，其实你可以把无关的数据都放在绑定表达式的外面，就像这样：</p>
+
+<p><input type="number" ng-model="price"/>
+<span>{{price}}（元）</span>
+那么，考虑个稍微复杂一些的。我们经常会遇到，在界面上展示性别，但是数据库里面存的是0或者1，那么，总要对它作个转换。有些比较老土的做法是这样，在模型上添加额外的字段给显示用：</p>
+
+<p>这是原始数据：</p>
+
+<p>var tom = {
+    name: &ldquo;Tom&rdquo;,
+    gender: 1
+};
+被他转换之后，成了这样：</p>
+
+<p>var tom = {
+    name: &ldquo;Tom&rdquo;,
+    gender: 1,
+    genderText: &ldquo;男&rdquo;
+};
+转换函数内容如下：</p>
+
+<p>if (person.gender == 0)
+    person.genderText = &ldquo;女&rdquo;;</p>
+
+<p>if (person.gender == 1)
+    person.genderText = &ldquo;男&rdquo;;
+这样的做法虽然能够达到效果，但破坏了模型的结构，我们可以做些改变：</p>
+
+<p><div>{{formatGender(tom.gender)}}</div>
+$scope.formatGender = function(gender) {
+    if (gender == 0)
+        return &ldquo;女&rdquo;;</p>
+
+<pre><code>if (gender == 1)
+    return &quot;男&quot;;
+}
+</code></pre>
+
+<p>};
+这样我们就达到了目的。这个例子让我们发现，原来，在绑定表达式里面，是可以使用函数的。像我们这里的格式化函数，其实作用只存在于视图层，所以不会影响到真实数据模型。</p>
+
+<p>注意：这里有两个注意点。</p>
+
+<p>第一，在绑定表达式里面，只能使用自定义函数，不能使用原生函数。举个例子：</p>
+
+<p><div>{{Math.abs(-1)}}</div>
+这句就是有问题的，因为Angular的插值表达式机制决定了它不能使用这样的函数，它是直接用自己的解释器去解析这个字符串的，如果确实需要调用原生函数，可以用一个自定义函数作包装，在自定义函数里面可以随意使用各种原生对象，就像这样：</p>
+
+<p><div>{{abs(-1)}}</div>
+$scope.abs = function(number) {
+    return Math.abs(number);<br />
+};
+第二，刚才我们这个例子只是为了说明可以这么用，但不表示这是最佳方案。Angular为这类需求提供了一种叫做filter的方案，可以在插值表达式中使用管道操作符来格式化数据，这个我们后面再细看。</p>
+
+<p>数组与对象结构的绑定</p>
+
+<p>有时候，我们的数据并不总是这么简单，比如说，有可能会需要把一个数组的数据展示出来，这种情况下可以使用Angular的ng-repeat指令来处理，这个东西相当于一个循环，比如我们来看这段例子：</p>
+
+<p>$scope.arr1 = [1, 2, 3];</p>
+
+<p>$scope.add = function() {
+    $scope.arr1.push($scope.arr1.length + 1);
+};
+<button ng-click="add()">Add Item</button>
+<ul>
+    <li ng-repeat="item in arr1">{{item}}</li>
+</ul>
+这样就可以把数组的内容展示到界面上了。数组中的数据产生变化时，也能够实时更新到界面上来。</p>
+
+<p>有时候，我们会遇到数组里有重复元素的情况，这时候，ng-repeat代码不能起作用，原因是Angular默认需要在数组中使用唯一索引，那假如我们的数据确实如此，怎么办呢？可以指定它使用序号作索引，就像这样：</p>
+
+<p>$scope.arr2 = [1, 1, 3];
+<ul>
+    <li ng-repeat="item in arr2 track by $index">{{item}}</li>
+</ul>
+也可以把多维数组用多层循环的方式迭代出来：</p>
+
+<p>$scope.arr3 = [
+    [11, 12, 13],
+    [21, 22, 23],
+    [31, 32, 33]
+];
+<ul>
+    <li ng-repeat="childArr in arr3 track by $index">
+        {{$index}}
+        <ul>
+            <li ng-repeat="item in childArr track by $index">{{item}}</li>
+        </ul>
+    </li>
+</ul>
+如果是数组中的元素是对象结构，也不难，我们用个表格来展示这个数组：</p>
+
+<p>$scope.arr4 = [{
+    name: &ldquo;Tom&rdquo;,
+    age: 5
+}, {
+    name: &ldquo;Jerry&rdquo;,
+    age: 2
+}];
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="child in arr4">
+        <td>{{child.name}}</td>
+        <td>{{child.age}}</td>
+    </tr>
+    </tbody>
+</table>
+有时候我们想遍历对象的属性，也可以使用ng-repeat指令：</p>
+
+<p>$scope.obj = {
+    a: 1,
+    b: 2,
+    c: 3
+};
+<ul>
+    <li ng-repeat="(key, value) in obj">{{key}}: {{value}}</li>
+</ul>
+注意，在ng-repeat表达式里，我们使用了一个(key, value)来描述键值关系，如果只想要值，也可以不用这么写，直接按照数组的写法即可。对象值有重复的话，不用像数组那么麻烦需要指定$index做索引，因为它是对象的key做索引，这是不会重复的。</p>
+
+<p>数据监控</p>
+
+<p>有时候，我们不是直接把数据绑定到界面上，而是先要赋值到其他变量上，或者针对数据的变更，作出一些逻辑的处理，这个时候就需要使用监控。</p>
+
+<p>最基本的监控很简单：</p>
+
+<p>$scope.a = 1;</p>
+
+<p>$scope.$watch(&ldquo;a&rdquo;, function(newValue, oldValue) {
+    alert(oldValue + &ldquo; -&gt; &rdquo; + newValue);
+});</p>
+
+<p>$scope.changeA = function() {
+    $scope.a++;
+};
+对作用域上的变量添加监控之后，就可以在变更时得到通知了。如果说新赋值的变量跟原先的相同，这个监控就不会被执行。比如说刚才例子中，继续对a赋值为1，不会进入监控函数。</p>
+
+<p>以上这种方式可以监控到最直接的赋值，包括各种基本类型，以及复杂类型的引用赋值，比如说下面这个数组被重新赋值了，就可以被监控到：</p>
+
+<p>$scope.arr = [0];</p>
+
+<p>$scope.$watch(&ldquo;arr&rdquo;, function(newValue) {
+    alert(&ldquo;change:&rdquo; + newValue.join(&ldquo;,&rdquo;));
+});</p>
+
+<p>$scope.changeArr = function() {
+    $scope.arr = [7, 8];
+};
+但这种监控方式只能处理引用相等的判断，对于一些更复杂的监控，需要更细致的处理。比如说，我们有可能需要监控一个数组，但并非监控它的整体赋值，而是监控其元素的变更：</p>
+
+<p>$scope.$watch(&ldquo;arr&rdquo;, function(newValue) {
+    alert(&ldquo;deep:&rdquo; + newValue.join(&ldquo;,&rdquo;));
+}, true);</p>
+
+<p>$scope.addItem = function() {
+    $scope.arr.push($scope.arr.length);
+};
+注意，这里我们在$watch函数中，添加了第三个参数，这个参数用于指示对数据的深层监控，包括数组的子元素和对象的属性等等。</p>
+
+<p>样式的数据绑定</p>
+
+<p>刚才我们提到的例子，都是跟数据同步、数据展示相关，但数据绑定的功能是很强大的，其应用场景取决于我们的想象力。</p>
+
+<p>不知道大家有没有遇到过这样的场景，有一个数据列表，点中其中某条，这条就改变样式变成加亮，如果用传统的方式，可能要添加一些事件，然后在其中作一些处理，但使用数据绑定，能够大幅简化代码：</p>
+
+<p>function ListCtrl($scope) {
+    $scope.items = [];</p>
+
+<pre><code>for (var i=0; i&lt;10; i++) {
+    $scope.items.push({
+        title:i
+    });
+}
+
+$scope.selectedItem = $scope.items[0];
+
+$scope.select = function(item) {
+    $scope.selectedItem = item;
+};
+</code></pre>
+
+<p>}
+<ul class="list-group" ng-controller="ListCtrl">
+    <li ng-repeat="item in items" ng-class="{true:'list-group-item active', false: 'list-group-item'}[item==selectedItem]" ng-click="select(item)">
+        {{item.title}}
+    </li>
+</ul>
+在本例中，我们使用了一个循环来迭代数组中的元素，并且使用一个变量selectedItem用于标识选中项，然后关键点在于这个ng-class的表达式，它能够根据当前项是否为选中项，作出一个判断，生成对应的样式名。这是绑定的一个典型应用了，基于它，能把一些之前需要依赖于某些控件的功能用特别简单的方式做出来。</p>
+
+<p>除了使用ng-class，还可以使用ng-style来对样式作更细致的控制，比如：</p>
+
+<p><input type="number" ng-model="x" ng-init="x=12"/>
+<div ng-style="{'font-size': x+'pt'}">
+    测试字体大小
+</div>
+状态控制</p>
+
+<p>有时候，我们除了控制普通的样式，还有可能要控制某个界面元素的显示隐藏。我们用ng-class或者ng-style当然都是可以控制元素的显示隐藏的，但Angular给我们提供了一种快捷方式，那就是ng-show和ng-hide，它们是相反的，其实只要一个就可以了，提供两个是为了写表达式的方便。</p>
+
+<p>利用数据绑定，我们可以很容易实现原有的一些显示隐藏功能。比如说，当列表项有选中的时候，某些按钮出现，当什么都没选的时候，不出现这些按钮。</p>
+
+<p>主要的代码部分还是借用上面那个列表，只添加一些相关的东西：</p>
+
+<p><button ng-show="selectedItem">有选中项的时候可以点我</button>
+<button ng-hide="selectedItem">没有选中项的时候可以点我</button>
+把这个代码放在刚才的列表旁边，位于同一个controller下，点击列表元素，就能看到绑定状态了。</p>
+
+<p>有时候，我们也想控制按钮的可点击状态，比如刚才的例子，那两个按钮直接显示隐藏，太突兀了，我们来把它们改成启用和禁用。</p>
+
+<p><button ng-disabled="!selectedItem">有选中项的时候可以点我</button>
+<button ng-disabled="selectedItem">没有选中项的时候可以点我</button>
+同理，如果是输入框，可以用同样的方式，使用ng-readonly来控制其只读状态。</p>
+
+<p>流程控制</p>
+
+<p>除了使用ng-show和ng-hide来控制元素的显示隐藏，还可以使用ng-if，但这个的含义与实现机制都大为不同。所谓的show和hide，意味着DOM元素已经存在，只是控制了是否显示，而if则起到了流程控制的作用，只有符合条件的DOM元素才会被创建，否则不创建。</p>
+
+<p>比如下面的例子：</p>
+
+<p>function IfCtrl($scope) {
+    $scope.condition = 1;</p>
+
+<pre><code>$scope.change = function() {
+    $scope.condition = 2;
+};
+</code></pre>
+
+<p>}
+<div ng-controller="IfCtrl">
+    <ul>
+        <li ng-if="condition==1">if 1</li>
+        <li ng-if="condition==2">if 2</li></p>
+
+<pre><code>    &lt;li ng-show=&quot;condition==1&quot;&gt;show 1&lt;/li&gt;
+    &lt;li ng-show=&quot;condition==2&quot;&gt;show 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;button ng-click=&quot;change()&quot;&gt;change&lt;/button&gt;
+</code></pre>
+
+<p></div>
+这个例子初始的时候，创建了三个li，其中一个被隐藏（show 2），当点击按钮，condition变成2，仍然是三个li，其中，if 1没有了，if 2创建出来了，show 1隐藏了，show 2显示了。</p>
+
+<p>所以，我们现在看到的是，if的节点是动态创建的。与此类似，我们还可以使用ng-switch指令：</p>
+
+<p>function SwitchCtrl($scope) {
+    $scope.condition = &ldquo;&rdquo;;</p>
+
+<pre><code>$scope.a = function() {
+    $scope.condition = &quot;A&quot;;
+};
+
+$scope.b = function() {
+    $scope.condition = &quot;B&quot;;
+};
+
+$scope.c = function() {
+    $scope.condition = &quot;C&quot;;
+};
+</code></pre>
+
+<p>}
+<div ng-controller="SwitchCtrl">
+    <div ng-switch="condition">
+        <div ng-switch-when="A">A</div>
+        <div ng-switch-when="B">B</div>
+        <div ng-switch-default>default</div>
+    </div>
+    <button ng-click="a()">A</button>
+    <button ng-click="b()">B</button>
+    <button ng-click="c()">C</button>
+</div>
+这个例子跟if基本上是一个意思，只是语法更自然些。</p>
+
+<p>数据联动</p>
+
+<p>在做实际业务的过程中，很容易就碰到数据联动的场景，最典型的例子是省市县的三级联动。很多前端教程或者基础面试题以此为例，综合考察其中所运用到的知识点。</p>
+
+<p>如果是用Angular做开发，很可能这个就不成其为一个考点了，因为实现起来非常容易。</p>
+
+<p>我们刚才已经实现了一个单级列表，可以借用这段代码，做两个列表，第一个的数据变动，对第二个的数据产生过滤。</p>
+
+<p>function RegionCtrl($scope) {
+    $scope.provinceArr = [&ldquo;江苏&rdquo;, &ldquo;云南&rdquo;];
+    $scope.cityArr = [];</p>
+
+<pre><code>$scope.$watch(&quot;selectedProvince&quot;, function(province) {
+    // 真正有用的代码在这里，实际场景中这里可以是调用后端服务查询的关联数据
+    switch (province) {
+        case &quot;江苏&quot;: {
+            $scope.cityArr = [&quot;南京&quot;, &quot;苏州&quot;];
+            break;
+        }
+        case &quot;云南&quot;: {
+            $scope.cityArr = [&quot;昆明&quot;, &quot;丽江&quot;];
+            break;
+        }
+    }
+});
+
+$scope.selectProvince = function(province) {
+    $scope.selectedProvince = province;
+};
+
+$scope.selectCity = function(city) {
+    $scope.selectedCity = city;
+};
+</code></pre>
+
+<p>}
+<div ng-controller="RegionCtrl">
+    <ul class="list-group">
+        <li ng-repeat="province in provinceArr" ng-class="{true:'list-group-item active', false: 'list-group-item'}[province==selectedProvince]" ng-click="selectProvince(province)">
+            {{province}}
+        </li>
+    </ul>
+    <ul class="list-group">
+        <li ng-repeat="city in cityArr" ng-class="{true:'list-group-item active', false: 'list-group-item'}[city==selectedCity]" ng-click="selectCity(city)">
+            {{city}}
+        </li>
+    </ul>
+</div>
+这段代码看起来比刚才复杂一些，其实有价值的代码就那个$watch里面的东西。这是什么意思呢？意思是，监控selectedProvince这个变量，只要它改变了，就去查询它可能造成的更新数据，然后剩下的事情就不用我们管了。</p>
+
+<p>如果是绑定到下拉框上，代码更简单，因为AngularJS专门作了这种考虑，ng-options就是这样的设置：</p>
+
+<p><select class="form-control col-md-6" ng-model="selectedProvince" ng-options="province for province in provinceArr"></select>
+<select class="form-control col-md-6" ng-model="selectedCity" ng-options="city for city in cityArr"></select>
+从这个例子我们看到，相比于传统前端开发方式那种手动监听事件，手动更新DOM的方式，使用数据绑定做数据联动简直太容易了。如果要把这个例子改造成三级联动，只需对selectedCity也做一个监控就行了。</p>
+
+<p>一个综合的例子</p>
+
+<p>了解了这些细节之后，我们可以把它们结合起来做一个比较实际的综合例子。假设我们在为一家小店创建雇员的管理界面，其中包含一个雇员表格，以及一个可用于添加或编辑雇员的表单。</p>
+
+<p>雇员包含如下字段：姓名，年龄，性别，出生地，民族。其中，姓名通过输入框输入字符串，年龄通过输入框输入整数，性别通过点选单选按钮来选择，出生地用两个下拉框选择省份和城市，民族可以选择汉族和少数民族，如果选择了少数民族，可以手动输入民族名称。</p>
+
+<p>这个例子恰好能把我们刚才讲的绑定全部用到。我们先来看看有哪些绑定关系：</p>
+
+<p>雇员表格可以选中某行，该行样式会高亮
+如果选中了某行，其详细数据将会同步到表单上
+如果点击过新增或修改按钮，当前界面处于编辑中，则表单可输入，否则表单只读
+修改和删除按钮的可点击状态，取决于表格中是否有选中的行
+出生地点的省市下拉框存在联动关系
+民族名称的输入框，其可见性取决于选择了汉族还是少数民族的单选按钮
+新增修改删除、确定取消，这两组按钮互斥，永远不同时出现，其可见性取决于当前是否正在编辑。
+确定按钮的可点击状态，取决于当前表单数据是否合法
+如果想做得精细，还有更多可以使用绑定的地方，不过上面这些已经足够我们把所有知识用一遍了。</p>
+
+<p>这个例子的代码就不贴了，可以自行查看。</p>
+
+<p>数据绑定的拓展运用</p>
+
+<p>现在我们学会了数据绑定，可以借助这种特性，完成一些很别致的功能。比如说，如果想在页面上用div模拟一个正弦波，只需要把波形数据生成出来，然后一个绑定就可以完成了。</p>
+
+<p>$scope.staticItems = [];</p>
+
+<p>for (var i=0; i&lt;720; i++) {
+    $scope.staticItems.push(Math.ceil(100 * (1 + Math.sin(i * Math.PI / 180))));
+}
+如果我们想让这个波形动起来，也很容易，只需要结合一个定时器，动态生成这个波形数据就可以了。为了形成滚动效果，当波形采点数目超过某个值的时候，可以把最初的点逐个拿掉，保持总的数组长度。</p>
+
+<p>$scope.dynamicItems = [];</p>
+
+<p>var counter = 0;</p>
+
+<p>function addItem() {
+    var newItem = Math.ceil(100 * (1 + Math.sin((counter++) * Math.PI / 180)));</p>
+
+<pre><code>if ($scope.dynamicItems.length &gt; 500) {
+    $scope.dynamicItems.splice(0, 1);
+}
+
+$scope.dynamicItems.push(newItem);
+
+$timeout(function () {
+    addItem();
+}, 10);
+</code></pre>
+
+<p>}</p>
+
+<p>addItem();
+这个例子对应的HTML代码如下：</p>
+
+<p><div ng-controller="WaveCtrl">
+    <style>
+        .wave-item {
+            float: left;
+            width: 1px;
+            background-color: #ffab51;
+        }
+    </style>
+    <div>
+        <div ng-repeat="item in staticItems track by $index" class="wave-item" ng-style="{'height': item+'px'}"></div>
+    </div>
+    <div style="clear: left">
+        <div ng-repeat="item in dynamicItems track by $index" class="wave-item" ng-style="{'height': item+'px'}"></div>
+    </div>
+</div>
+有时候我们经常看到一些算法可视化的项目，比如把排序算法用可视化的方式展现出来，如果使用AngularJS的数据绑定，实现这种效果可谓易如反掌：</p>
+
+<p><div ng-controller="SortCtrl">
+    <style>
+        .data-item {
+            float: left;
+            width: 20px;
+            background-color: #c0c0c0;
+            border: 1px solid #080808;
+        }
+    </style>
+    <button ng-click="sort()">Sort</button>
+    <div>
+        <div ng-repeat="item in arr track by $index" class="data-item" ng-style="{'height': item*5+'px'}"></div>
+    </div>
+</div>
+$scope.arr = [2, 4, 5, 63, 4, 5, 55, 2, 4, 43];</p>
+
+<p>$scope.sort = function () {
+    if (!sort($scope.arr)) {
+        $timeout(function() {
+            $scope.sort();
+        }, 500);
+    }
+};</p>
+
+<p>function sort(array) {
+    // 喵的，写到这个才发现yield是多么好啊
+    for (var i = 0; i &lt; array.length; i++) {
+        for (var j = array.length; j &gt; 0; j&ndash;) {
+            if (array[j] &lt; array[j - 1]) {
+                var temp = array[j - 1];
+                array[j - 1] = array[j];
+                array[j] = temp;</p>
+
+<pre><code>            return false;
+        }
+    }
+}
+
+return true;
+</code></pre>
+
+<p>}
+看，就这么简单，一个冒泡排序算法的可视化过程就写好啦。</p>
+
+<p>甚至，AngularJS还允许我们在SVG中使用数据绑定，使用它，做一些小游戏也是很容易的，比如我写了个双人对战的象棋，这里有演示地址，可以查看源码，是不是很简单？</p>
+
+<p>小结</p>
+
+<p>刚才我们已经看到数据绑定的各种使用场景了，这个东西带给我们的最大好处是什么呢？我们回顾一下之前写Web界面，有一部分时间在写HTML和CSS，一部分时间在写纯逻辑的JavaScript，还有很多时间在把这两者结合起来，比如各种创建或选取DOM，设置属性，添加等等，这些事情都是很机械而繁琐的，数据绑定把这个过程简化了，代码也跟着清晰了。</p>
+
+<p>数据绑定是一种思维方式，一切的核心就是数据。数据的变更导致界面的更新，如果我们想要更新界面，只需改变数据即可。</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://satisfied1.github.io/post/angular%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%BA%8B%E4%BB%B6/" title="angular作用域与事件">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              angular作用域与事件
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://satisfied1.github.io/post/angular%E6%A8%A1%E5%9D%97%E6%9C%BA%E5%88%B6/" title="angular模块机制">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              angular模块机制
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/satisfied1.github.io\/';
+      var repo_id  = 'Satisfied1\/Satisfied1.github.io';
+    
+    </script>
+
+    <script src="https://satisfied1.github.io/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

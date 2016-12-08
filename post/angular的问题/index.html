@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>angular的问题 - 前端天地</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="A material design theme for documentations.">
+    
+    <link rel="canonical" href="https://satisfied1.github.io/post/angular%E7%9A%84%E9%97%AE%E9%A2%98/">
+    
+    <meta name="author" content="satisfied">
+    
+
+    <meta property="og:url" content="https://satisfied1.github.io/post/angular%E7%9A%84%E9%97%AE%E9%A2%98/">
+    <meta property="og:title" content="前端天地">
+    <meta property="og:image" content="https://satisfied1.github.io/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="前端天地">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://satisfied1.github.io/fonts/icon.eot?52m981');
+        src: url('https://satisfied1.github.io/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://satisfied1.github.io/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://satisfied1.github.io/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://satisfied1.github.io/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/application.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://satisfied1.github.io/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        angular的问题
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/Satisfied1" title="@Satisfied1 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/Satisfied1/Satisfied1.github.io" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://satisfied1.github.io/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>前端天地 <span class="version">1.0.0</span></strong>
+        
+          <br>
+          Satisfied1/Satisfied1.github.io
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="首页" href="https://Satisfied1.github.io/">
+	
+	首页
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+        <ul id="all-tags">
+          
+            <li><a href="https://Satisfied1.github.io/tags/angularjs">angularjs</a></li>
+          
+            <li><a href="https://Satisfied1.github.io/tags/html5">html5</a></li>
+          
+        </ul>
+
+        
+        <hr>
+        <span class="section">作者</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/Satisfied1" target="_blank" title="@Satisfied1 on GitHub">
+              @Satisfied1 on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:13262631093@163.com" title="Email of 13262631093@163.com">
+              联系我
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>angular的问题 </h1>
+
+			<p>Angular的问题</p>
+
+<p><img src="http://www.quirksmode.org/blog/archives/2015/01/the_problem_wit.html" alt="原文地址" /></p>
+
+<p>在过去半年里，我跟一些潜在客户进行了交谈，他们在寻找前端顾问来帮助开发团队控制Angular项目的时候，遇到了麻烦。</p>
+
+<p>尽管有一些对Angular很热情的前端人员，我有种感觉，对于一个主流框架来说，他们的数量还是太少了。我期望Angular能比之前受到更多关注。</p>
+
+<p>Angular更多地是面向企业的IT部门，而不是前端人员。它独特的编码风格，它那种更倾向服务端而不是浏览器侧的对HTML模板系统的封装形式，以及严重而基础的性能问题吓跑了不少人。</p>
+
+<p>我曾经说过，Angular更多的用户是有Java背景的人员，因为它的编码风格是面向他们的。不幸的是，他们没有被培训以认识到Angular的性能问题。</p>
+
+<p>对于Angular 1.x是否适合现代web开发，我表示怀疑。如果有人持有不太客气的倾向，他会把它描述成一个：非前端人员做给非前端人员用的前端框架。</p>
+
+<p>Angular 2.0被提出了激进的改写，意图使它更符合前端人员的口味，但我怀疑他们所感兴趣的是另外一个MVC框架了。此外，重写有可能会疏远Angular的当前目标受众。</p>
+
+<p>如果你想要知道为什么我有这些想法，恐怕要把这篇长文章看完了。</p>
+
+<p>Angular 服务页面</p>
+
+<p>我感觉到Angular的基本理念在前后端之间模糊不清。看一看这个示例代码吧，这是我拉过来的真实的东西:</p>
+
+<p><body>
+  <h2>Todo</h2>
+  <div ng-controller="TodoController">
+    <span>{{remaining()}} of {{todos.length}} remaining</span>
+    [ <a href="" ng-click="archive()">archive</a> ]
+    <ul class="unstyled">
+      <li ng-repeat="todo in todos">
+        <input type="checkbox" ng-model="todo.done">
+        <span class="done-{{todo.done}}">{{todo.text}}</span>
+      </li>
+    </ul>
+    <form ng-submit="addTodo()">
+      <input type="text" ng-model="todoText"  size="30"
+             placeholder="add new todo here">
+      <input class="btn-primary" type="submit" value="add">
+    </form>
+  </div>
+</body>
+这代码让我想起了一个简单的服务端脚本语言，比如JSP或者ASP，它们使用数据库的内容来填充HTML模板。这些语言在web开发栈中有一席之地——但是在服务端，而不是浏览器端。</p>
+
+<p>上个月，我在一个大型的荷兰公司参与了项目，它们庞大的网站使用了各种小部件和设计模式，做相同的事情，但不是来源于通用的代码库，整个网站间充斥复制／粘贴。这显然是个不受欢迎的状况。</p>
+
+<p>他们转向Angular以解决这个问题，包括把所需的部件集中化。虽然模板是正确的解决方案，在浏览器中这么做却是根本错误的。应用程序维护的成本不应转移到所有用户的浏览器（在这里，我们所讨论的是每个月数以百万计的点击）中——尤其它们不是移动浏览器。这个事情是属于服务端的。</p>
+
+<p>严格来说，这不是Angular的问题，而是这个公司使用Angular进行的实现所致。然而，从逻辑上讲，是Angular，在所有JavaScript 框架中，把这个问题更深化了。它的类似JSP的品质，允许了，甚至鼓励了这种行为。</p>
+
+<p>Angular 的目标受众</p>
+
+<p>Angular是面向大型企业的IT后端和经理们的，他们被JavaScipt疯狂扩散的工具们搞迷糊了。在一篇优秀的文章中，Andrew Austin描述了在企业IT中Angular的状况：</p>
+
+<p>对整个团队都属于Google的AngularJS团队，有很多积极的看法。首先，有商业实体控制的框架通常是比较积极的，因为它完全避免了政治派系之间的斗争。在开源世界，这种内讧是公开的，严重的，影响到团队构建伟大软件的目标。
+企业IT经理们想要背后有一个大公司良好维护的代码，这样他们不用担心突然就得不到支持了。此外，Google在web技术方面名声较好，所以，如果他们推出一个JavaScript库，那必须是非常好啊……是不是？</p>
+
+<p>企业IT经理也喜欢这么一个事实：Angular对后端开发人员友好。我用Twitter跟weather.com的Joe Pearson进行了讨论，他告诉我，最近转向Angular，主要是为了Java开发人员。Angular所使用的代码构建方式很适合他们，但对他们的前端人员却并非如此。从我客户那里得到的消息，是他们的Java开发人员决定使用Angular。</p>
+
+<p>换句话说，Angular出了吸引经理们，还打动了Java开发人员。框架与恰当的应用程序结构概念相结合，一切都不是意外。Google的目标是征服企业市场，Angular是它的工具之一。</p>
+
+<p>另一方面，很多前端人员，在JavaScript和浏览器上面花了很多年，已经拥有了自己的编码风格，倾向于对Angular表示怀疑。</p>
+
+<p>这本身不是个问题：人们应当使用适合自己编码风格的框架。不幸的是，Angular的问题太深了。</p>
+
+<p>性能问题</p>
+
+<p>再看一眼Angular的示例代码吧：</p>
+
+<p><body>
+  <h2>Todo</h2>
+  <div ng-controller="TodoController">
+    <span>{{remaining()}} of {{todos.length}} remaining</span>
+    [ <a href="" ng-click="archive()">archive</a> ]
+    <ul class="unstyled">
+      <li ng-repeat="todo in todos">
+        <input type="checkbox" ng-model="todo.done">
+        <span class="done-{{todo.done}}">{{todo.text}}</span>
+      </li>
+    </ul>
+    <form ng-submit="addTodo()">
+      <input type="text" ng-model="todoText"  size="30"
+             placeholder="add new todo here">
+      <input class="btn-primary" type="submit" value="add">
+    </form>
+  </div>
+</body>
+在{{}}中的所有代码段都是Angular语句。问题在于，Angular无法发现这些语句，除非解析整个DOM，包括文本阶段和属性值——这过程的开销太大了，特别在移动端。</p>
+
+<p>虽然对于整体性能而言，这不一定是致命的问题，解析整个DOM所花费的时间是需要作为一个问题被指出的。不幸的是，这种性能似乎被Angular所代表的整体所忽略了。</p>
+
+<p>Filament Group的测试报告对Angular来说，不太乐观。尽管作者非常小心地提到，对一个大型、复杂的应用做测试，结果可能更积极些，他们的简单测试应用的Angular版本表现并不好。Ember的也不好，只有Backbone脱颖而出。</p>
+
+<p>Steven Czerwinksi提供了有趣的细节：</p>
+
+<p>每次更新都花费了一段较长时间来创建和销毁DOM元素。如果新视图有不同的行数，或者任何一行的单词数量不同，Angular的ng-repeat指令都会整体创建或销毁DOM元素。这个开销很大。
+尽管这篇文章展示了如何简单地解决这个问题，我担心的是，Angular默认的就是这种性能低下的模式。前端框架默认应当使用前端建立的最佳实践。但Angular没有。</p>
+
+<p>即使是Google，似乎也同意它有问题了。在对Angular的批评中，最能让我感到共鸣的文章是来自Daniel Steigerwald 写的Angular.js有什么问题的：</p>
+
+<p>Google不把Angular用在自己的标志产品比如Gmail或Gplus上。
+哎，你要吃你自己的狗粮哎。</p>
+
+<p>对于一个普通水平的，只拥有少量前端知识的后端人员来说，这些问题是看不到的。这个框架如它宣传的那样运作，它来自一个在前端技术领域拥有声望的公司，所以，普通水平的后端人员就会默认：这就是前端世界的做事方式。</p>
+
+<p>Angular的方式</p>
+
+<p>对很多前端人员而言，最大的问题是，Angular强迫自己用一种指定的方式去干活。Software Improvement Group发布了一份报告指出（我的强调）：</p>
+
+<p>使用AngularJS给开发人员提供了一堆好处。……这些好处为AngularJS的流行作出了贡献，当遵守AngularJS的约定时，生产力会更高。
+这份报告把这个问题当作了优点，而不是缺点。在一份自认为带个人倾向的JS框架纲要中，Henrik Joreteg的观念就比较负面了：</p>
+
+<p>选择Angular意味着你学习的是如何用Angular这个框架，而不是用JavaScript来解决问题。……我有些开发人员，他们的主要技能是Angular，而不是JavaScript。
+因为有必要学习使用Angular的方式去处理事情，这个框架的学习曲线很陡峭。Ben Nadel，一个Angular爱好者，而不是一个反对者，把这个事情可视化了：</p>
+
+<p>换句话说，Angular需要你花很多时间来学习如何使用Angular的方式来做事，有些人会喜欢这样，但另外一些会视之为一种额外负担，对其敬而远之。</p>
+
+<p>哪里不对</p>
+
+<p>这些为什么是问题呢？Angular哪里不对呢？Rob Eisenberg 给出了一个解释：</p>
+
+<p>差不多五年前，当AngularJS刚创建出来的时候，它并不是给开发人员用的。它是一个工具，更倾向于给需要快速创建持久化HTML表单的设计人员用。随着时间推移，它作了改变以适应各种场景，开发人员也用它建造更多、更复杂的应用程序。
+关于Angular历史的更多东西，参见Hacker News这个帖子。</p>
+
+<p>我不认为，一个快速原型工具应当被用于复杂的，企业级的生产代码上。</p>
+
+<p>这还没完。同一篇文章中给了另一个担忧的原因：</p>
+
+<p>虽然Angular可以被用于创建移动应用，但它的理念并非为它们设计的。这包括了所有的东西，从我刚提到过的基本的性能问题，到它的路由的能力缺失，以及不能缓存预编译视图，甚至是过于普通的触摸支持。
+这个只有5岁大的框架没有为移动端做有效优化，很不可理喻。回到2010年，移动也不是个问题。</p>
+
+<p>不过，我们应该看的不是2010，而是2012年。我记得最早，Google开始推广Angular是2012年中。（这个日期有2012年6月的这篇文章为证，我觉得这可能是最早提到Angular的一篇了）。</p>
+
+<p>在那个时候，Android对Google的未来至关重要，这事已经很明朗了，所以你在推的这个工具要支持你未来的平台，这很重要……是不是？</p>
+
+<p>我想知道，当推出这么一个框架，初衷不是帮助开发人员，包含严重DOM性能问题，未对自家移动平台作优化，这个时候，Google到底在想什么。</p>
+
+<p>Right hand, meet left hand.</p>
+
+<p>Angular与前端</p>
+
+<p>别误会：有些前端人员是热衷于的，也存在模块仓库和最佳实践的站点。</p>
+
+<p>我的观点是，我期望有更多前端人员拥抱Angular。我有种感觉，它们的数量少得吓人——看看我的客户们的那些问题，他们找个好的Angular前端顾问有多么难。怎么会这样的呢？</p>
+
+<p>部分的答案是：可能因为Angular设计得更迎合Java开发人员的口味，而不是JavaScript开发人员。这使得前端人员不易接受。不过，编码风格并不是绑死语言的，所以这不是完整的答案。</p>
+
+<p>更重要的原因可能是JavaScript社区的拖后腿。Angular引发了一些严重指责。Alexey Migutsky总结得最好：</p>
+
+<p>Angular.js对大多数项目来说“够好”了，但对于专业Web应用开发（长期维护，在所有现代浏览器上性能可靠，有平滑的UX，对移动设备友好）来说，还是不够好。
+我认为他是有发言权的。我在本文中所总结的长篇控诉，特别是性能问题，让我怀疑Angular 1.x能不能适合现代前端工程。Angular要么是一个非前端人员创建的，给非前端人员用的框架，要么是把自己的前端特征藏得太好了。</p>
+
+<p>这也就是为什么我认为在本文的开始引用过的Andrew Austin，当他这么陈述的时候错了：</p>
+
+<p>对一个组织来说，相比雇用jQuery开发人员，雇用AngularJS开发人员可能更难。……但是不要担心，日子一天一天过，越来越多的JavaScript开发人员会发现AngularJS的，他们会用它来创建真正的应用。……相比于雇用有AngularJS经验的开发人员，培训已有的团队，或者雇用那些对学习AngularJS有兴趣的JavaScript多面手会更加容易些。
+对于一个前端人员，习惯于用特定方式来做事，迁移到Angular的方式可能比较痛苦。此外，他们反对Angular所导致的性能问题。Angular对前端的敏感点迎合得不够，所以很多前端倾向于无视它。</p>
+
+<p>后端们就没这么麻烦了。他们没有先入为主的前端代码应当如何写的概念，不经过培训的话，也认识不到Angular的性能问题。</p>
+
+<p>我的荷兰客户提到一个事情，加剧了这个问题：一般来说，前端开发者不喜欢企业级应用（企业IT流程，无尽的会议，为了解决简单的问题花很多周，这些的简称），因为它被视为无聊。这导致了前端Angular开发者和顾问更少了。</p>
+
+<p>这也就是为什么多数Angular开发人员来自后端，特别是Java。据我所知，一个前端框架主要由非前端开发者来支撑的情况是独此一家的。</p>
+
+<p>Angular 2.0</p>
+
+<p>对于提到的这些抱怨和问题的总结，Angular团队并未装聋作哑。在10月的时候，他们宣布了Angular 2.0，这是对1.x的完全背离。为了能上新版本，Angular用户将不得不重新编写网站代码。</p>
+
+<p>为什么需要这么激进的变更呢，很容易理解。为了给Angular一个重大性能提升，需要抛弃启动时候解析{{}}DOM的开销。为了这么做，语法必须改变，这会对开发过程造成严重后果。我想说，Angular 2.0需要开发人员在HTML模板中嵌入更少的应用逻辑，更多地放在脚本中。</p>
+
+<p>我认为，这种激进的重写基本是瞄准前端人员的，他们将获得更好的性能，更符合自己对JavaScript框架预期的语法。</p>
+
+<p>然而，这带来最大的代价就是会疏远最大的用户群体。企业IT选择Angular，期望能幸免于这样突然，关键的变化。采用Angular2.0会需要他们重新分配预算来重写已经在运行的代码。此外，我想知道有Java背景的人怎样看待新代码风格。</p>
+
+<p>基于这些原因，我认为很多企业用户会坚守1.x，无视2.0。当然，Google最终会停止支持1.x的。因此，我认为Google想要使用Angular打破企业级前端的堡垒，在最近两三年内还是不会成功的。</p>
+
+<p>虽然企业IT的背叛可以被前端人员的青睐所抵消，但Angular从此在他们心中印象就不好了。此外，前端界现在也不需要另外一个MVC框架。</p>
+
+<p>尽管有严重的技术问题，Angular 1.x还是一个较大的成功，尤其是在拥有Java背景的企业开发人员中。2.0的重写是瞄准前端开发人员的，但不会对他们有太多好处，反而会失去一些当前的拥趸。我不认为Angular的新版能生存下去。</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://satisfied1.github.io/post/%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E9%9D%A2%E7%A8%8B%E5%BA%8F/" title="构建单页面程序">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              构建单页面程序
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://satisfied1.github.io/post/angular%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="angular性能优化">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              angular性能优化
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/satisfied1.github.io\/';
+      var repo_id  = 'Satisfied1\/Satisfied1.github.io';
+    
+    </script>
+
+    <script src="https://satisfied1.github.io/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

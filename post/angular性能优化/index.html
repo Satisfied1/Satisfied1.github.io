@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>angular性能优化 - 前端天地</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="A material design theme for documentations.">
+    
+    <link rel="canonical" href="https://satisfied1.github.io/post/angular%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+    
+    <meta name="author" content="satisfied">
+    
+
+    <meta property="og:url" content="https://satisfied1.github.io/post/angular%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+    <meta property="og:title" content="前端天地">
+    <meta property="og:image" content="https://satisfied1.github.io/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="前端天地">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://satisfied1.github.io/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://satisfied1.github.io/fonts/icon.eot?52m981');
+        src: url('https://satisfied1.github.io/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://satisfied1.github.io/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://satisfied1.github.io/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://satisfied1.github.io/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/application.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://satisfied1.github.io/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://satisfied1.github.io/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        angular性能优化
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/Satisfied1" title="@Satisfied1 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/Satisfied1/Satisfied1.github.io" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://satisfied1.github.io/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>前端天地 <span class="version">1.0.0</span></strong>
+        
+          <br>
+          Satisfied1/Satisfied1.github.io
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/Satisfied1/Satisfied1.github.io/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="首页" href="https://Satisfied1.github.io/">
+	
+	首页
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+        <ul id="all-tags">
+          
+            <li><a href="https://Satisfied1.github.io/tags/angularjs">angularjs</a></li>
+          
+            <li><a href="https://Satisfied1.github.io/tags/html5">html5</a></li>
+          
+        </ul>
+
+        
+        <hr>
+        <span class="section">作者</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/Satisfied1" target="_blank" title="@Satisfied1 on GitHub">
+              @Satisfied1 on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:13262631093@163.com" title="Email of 13262631093@163.com">
+              联系我
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>angular性能优化 </h1>
+
+			<p>优化Angular应用的性能</p>
+
+<p>MVVM框架的性能，其实就取决于几个因素：</p>
+
+<p>监控的个数
+数据变更检测与绑定的方式
+索引的性能
+数据的大小
+数据的结构
+我们要优化Angular项目的性能，也需要从这几个方面入手。</p>
+
+<ol>
+<li>减少监控值的个数</li>
+</ol>
+
+<p>监控值的个数怎么减少呢？</p>
+
+<p>考虑极端情况，在不引入Angular的时候，监控的个数是为0的，每当我们有需要绑定的数据项，就产生了监控值。</p>
+
+<p>我们注意到，Angular里面使用了一种HTML模板语法来做绑定，开发业务项目非常方便，但考虑一下，这种所谓的“模板”，其实与我们常见的那种模板是不同的。</p>
+
+<p>传统的模板，是静态模板，将数据代入模板之后生成界面，之后数据再有变化，界面也不会变。但Angular的这种“模板”是动态的，当界面生成完毕，数据产生变更的时候，界面还是会更新。</p>
+
+<p>这是Angular的优势，但我们有时候也会因为使用不当，反而增加困扰。因为Angular采用了变动检测的方式来跟踪数据的变化，这些事情都是有负担的，很多时候，有些数据在初始化之后就不再会变化，但因为我们没有把它们区分出来，Angular还是要生成一个监听器来跟踪这部分数据的变化，性能也就受到牵累。</p>
+
+<p>在这种情况下，可以采用单次绑定，仅在初始化的时候把这些数据绑定，语法如下：</p>
+
+<p><div>{{::item}}</div>
+<ul><br />
+  <li ng-repeat="item in ::items">{{item}}</li>
+</ul>
+这样的数据就不会被持续观测，也就有效减少了监控值的数目，提高了性能。</p>
+
+<ol>
+<li>降低数据比对的开销</li>
+</ol>
+
+<p>这一个环节是从数据变更检测与绑定的方式入手。细节不说太多了，之前都说过。从数据到界面的更新，一般就两种方式：推、拉。</p>
+
+<p>所谓推，就是在set的时候，主动把与之相关的数据更新，大部分框架是这种方式，低版本浏览器用defineSetter之类。</p>
+
+<p>function Employee() {
+    this._firstName = &ldquo;&rdquo;;
+    this._lastName = &ldquo;&rdquo;;</p>
+
+<pre><code>this.fullName = &quot;&quot;;
+</code></pre>
+
+<p>}</p>
+
+<p>Employee.prototype = {
+    get firstName(){
+        return this._firstName;
+    },
+    set firstName(val){
+        this._firstName = val;
+        this.fullName = val + &ldquo; &rdquo; + this.lastName;
+    },
+    get lastName(){
+        return this._lastName;
+    },
+    set lastName(val){
+        this._lastName = val;
+        this.fullName = this.lastName + &ldquo; &rdquo; + val;
+    }
+};
+所谓拉，就是set的时候只改变自己，关联数据等到用的时候自己去取。比如：</p>
+
+<p>function Employee() {
+    this.firstName = &ldquo;&rdquo;;
+    this.lastName = &ldquo;&rdquo;;
+}</p>
+
+<p>Employee.prototype = {
+    get fullName() {
+        return this.firstName + &ldquo; &rdquo; + this.lastName;
+    }
+};
+有些框架中，两种方式都可以用。这时候可以自己考虑下适合用哪种方式，比如说，可能有些框架是合并变更，批量更新的，可能就用拉的方式效率高；有些框架是实时变动，差异更新的，那可能就是用推的效率高些。</p>
+
+<p>上面的代码能看出来，从代码编写的简洁性来说，拉模式要比推模式简单很多，如果能预知数据量较小，可以这样用。</p>
+
+<p>在实际开发过程中，这两种方式是需要权衡的。我们举的这个例子比较简单，如果说某个属性依赖于很多东西，例如，一个很大的购物列表，有个总价，它是由每个商品的单价乘以购买个数，再累加起来的。</p>
+
+<p>在这种情况下，如果使用拉模式，也就是在总价的get上做这个变动，它需要遍历整个数组，重新作计算。但是如果使用推模式，每次有商品价格或者商品购买个数发生变更的时候，都只要在原先的总价上，减去两次变动的差价即可。</p>
+
+<p>此外，不同的框架用不同方式来检测数据的变动，比如Angular，如果有一个数组中的元素发生变化了，它是怎样知道这个数组变了呢？</p>
+
+<p>它需要保持变动之前的数据，然后作比对：</p>
+
+<p>首先比对数组的引用是否相等，这一步是为了检测数组的整体赋值，比如this.arr = [1, 2, 3]; 直接把原来的替换掉了，如果出现这种情况，就认为它肯定变化了。（其实，如果内容与原先相同，是可以认为没有变的，但因为这些框架的内部实现，往往都需要更新数据与DOM元素的索引关系，所以不能这样）
+其次，比较数组的长度，如果长度跟原先不相等了，那肯定也产生变化了
+然后只能挨个去比对里面元素的变化了
+所以，会有人考虑在Angular中结合immutable这样的东西，加速变更的判定过程，因为immutable的数据只要发生任何变化，其引用都一定会变，所以只要第一步判定引用就足以知道数据是否改变了。</p>
+
+<p>有人说，你这个判定降低的开销并不大啊，因为引入immutable要增加复制的开销，跟这里的新旧数据比对开销相比，也低不到哪里去。但这个地方要注意，Angular在有事件产生的时候，会把所有监控数据都重新比对，也就是说，如果你在界面上有个大数组，你从未对它重新赋值，而是经常在另外一个很小的表单项绑定的数据上进行更新，这个数组也是要被比对的，这就比较坑了，所以如果引入immutable，可以大幅降低平时这种不受影响时候的比对成本。</p>
+
+<p>但是引入immutable也会对整个应用造成影响，需要在每个赋值取值的地方都使用immutable的封装方式，而且还要在绑定的时候，对数据作解包，因为Angular绑定的数据是pojo。</p>
+
+<p>所以，用这种方式还是要慎重，除非框架自身就构建在immutable的基础上。或许，我们可以期望有一套与ng-model平行的机制，ng-immutable之类，实现的难度也还是挺大的。</p>
+
+<p>在使用ES5的场景下，可以利用一些方法加速判断，比如数组的：</p>
+
+<p>filter
+map
+reduce
+它们能够返回一个全新的数组，与原先的引用不等，所以在第一步判断就可以得出结果，不必继续后面几步的比较。</p>
+
+<p>不过，这个环节的优化其实很不明显，最关键的优化在于与之配套的索引优化，参见下一节。</p>
+
+<ol>
+<li>提升索引的性能</li>
+</ol>
+
+<p>在Angular中，可以通过ng-repeat来实现对数组或者对象的遍历，但这个遍历的机制，其实有很多技巧。</p>
+
+<p>在使用简单类型数组的时候，我们很可能会碰到这么一个问题：数组中存在相同的值，比如：</p>
+
+<p>this.arr = [1, 3, 5, 3];
+<ul>
+    <li ng-repeat="num in arr">{{num}}</li>
+&lt;/ul
+这时候会报错，然后如果去搜索一下，会发现一个解决方式：</p>
+
+<p><ul>
+    <li ng-repeat="num in arr track by $index">{{num}}</li>
+&lt;/ul
+为什么这就能解决呢？</p>
+
+<p>我们先思考一下，如果自己实现类似Angular这样的功能，因为要在DOM和数据之间建立关联，这样，当改变数据的时候，才能刷新到对应的界面，所以，必然有个映射关系。</p>
+
+<p>映射关系需要唯一的索引，在刚才那个例子中，Angular默认对简单类型使用自身当索引，当出现重复的时候，就会出错了。如果指定$index，也就是元素在数组中的下标为索引，就可以避免这个问题。</p>
+
+<p>那么，对于对象数组，又是怎样呢？</p>
+
+<p>比如说这么一个数组，我们用不同的两个方式来绑定：</p>
+
+<p>function ListCtrl() {
+    this.arr = [];
+    for (var i=0; i&lt;10000; i++) {
+        this.arr.push({
+            id: i,
+            label: &ldquo;Item &rdquo; + i
+        });
+    }</p>
+
+<pre><code>var time = new Date();
+$timeout(function() {
+    alert(new Date() - time);
+    console.log(this.arr[0]);
+}.bind(this), 0);
+</code></pre>
+
+<p>}
+<ul ng-controller="ListCtrl as listCtrl">
+    <li ng-repeat="item in listCtrl.arr">{{item}}</li>
+</ul>
+<ul ng-controller="ListCtrl as listCtrl">
+    <li ng-repeat="item in listCtrl.arr track by item.id">{{item}}</li>
+</ul>
+看示例地址，多点击几下：</p>
+
+<p>我们惊奇地发现，这两个时间有不小差别。</p>
+
+<p>关注一下在绑定之后，arr里面的数据，发现在没有加track by $index的时候，原始数据被改变了，添加了一些索引信息，这些索引是当数据产生变更时，Angular能够找到关联界面的重要线索。</p>
+
+<p>Object {id: 0, label: &ldquo;Item 0&rdquo;, $$hashKey: &ldquo;object:4&rdquo;}
+如果我们知道数据的唯一性由什么保证，并且手动指定其为索引，可以减少不必要的添加索引的过程。</p>
+
+<ol>
+<li>降低数据的大小</li>
+</ol>
+
+<p>看到这个标题，可能有人会感到奇怪。业务数据的大小并不是由程序员控制的，怎么降低呢？这里的降低，指的是降低那些被用于绑定到界面的数据大小。</p>
+
+<p>数据的大小也会影响绑定效率，我们考虑一个屏幕能展示的数据有限，并不需要把所有东西都立即展示出来，可以从数据中截取一段进行展示，比如大家都熟悉的数据分页就是这么一种方式。</p>
+
+<p>很传统的那种数据分页，是会有一个分页条，上面写着总共多少数据，然后上一页，下一页，这样切换。后来出现了一些变种，比如滚动加载，当滚动条滚到底部的时候，再去加载或生成新的界面。</p>
+
+<p>如果说，我们有上万条数据形成的一个列表，但是又不打算用那么老圡的方式放个分页条在下面，如何在性能与体验中取得一个平衡呢？</p>
+
+<p>接触过Adobe Flex的人，可能会对其中的列表控件印象深刻，因为就算你给它上百万数据，它也不会因此而慢下来，为什么呢？因为它的滚动条是假的。</p>
+
+<p>同理，我们也可能在浏览器中使用DOM来模拟一个滚动条，然后利用这个滚动条的位置，从全量数据中获取对应的那一段数据，并且绑定渲染到界面上。</p>
+
+<p>这种技术一般称为Virtual List，在很多框架中都有第三方实现，可以参见这篇文章：AngularJS virtual list directive tutorial</p>
+
+<p>上面这篇文章做到的，只是初步的优化，并不精细，因为它假定列表中所有项的大小是一致的，而且要在创建阶段即已预知，这样就很不灵活了。如果需要做更精细的优化，需要做实时的度量，对每个已创建并渲染的子项作度量，然后以此来更新滚动区的位置。</p>
+
+<p>参见demo：<a href="http://codepen.io/xufei/pen/avRjqV">http://codepen.io/xufei/pen/avRjqV</a></p>
+
+<ol>
+<li>将数据的结构扁平化</li>
+</ol>
+
+<p>那么，数据的结构又是怎样影响到执行效率的呢？我举一个常见的例子就是树形结构，这个结构一般人会使用ul和li之类的结构做，然后不可避免地要用递归的方式来使用MVVM框架。</p>
+
+<p>我们考虑一下，为什么非要使用这种方式呢？其原因有二：</p>
+
+<p>给定的数据结构就是树形的
+我们习惯于使用树形DOM结构来表达树形数据
+这个树形数据对我们来说，是什么？是数据模型。但是我们知道，比对两个树形结构是很麻烦的，它的层级使得监控变得复杂，无论是数据的逐一比对，还是存取器、或者刚被取消的observe提案，都会比单层数据麻烦很多。</p>
+
+<p>如果我们想要用一种更加扁平的DOM结构来展示它，而不是层级结构，怎么办呢？所谓的树形DOM结构，能展现给我们的无非是位置的偏移，比如所有下级节点比上级更靠右，这些东西其实可以很轻易使用定位来模拟，这么一来，就有可能适用平级DOM结构来表达树的形状了。</p>
+
+<p>回忆一下，MVVM，这几个字母什么意思？</p>
+
+<p>Model View ViewModel</p>
+
+<p>我们看了前两者了，但从未关注过视图模型。在很多人眼里，视图模型只是模型的一个简单封装，其实那只是特例，Angular官方的demo形成了这种误导。视图模型的真正作用应当包括：把模型转化为适合视图展示的格式。</p>
+
+<p>如果说我们需要在视图层有比较扁平的数据结构，就必须在这一层把原始数据拍扁，举个栗子，我们要做一个动态的组织架构图，这个展开会像一个树，内部肯定也会有树形的数据结构，但我们可以同时维护树形和扁平的两种结构，并且随时保持同步：</p>
+
+<p>原始数据如下：</p>
+
+<p>var source = [
+    {id: &ldquo;0&rdquo;, name: &ldquo;a&rdquo;},
+    {id: &ldquo;1&rdquo;, name: &ldquo;b&rdquo;},
+    {id: &ldquo;013&rdquo;, name: &ldquo;abd&rdquo;, parent: &ldquo;01&rdquo;},
+    {id: &ldquo;2&rdquo;, name: &ldquo;c&rdquo;},
+    {id: &ldquo;3&rdquo;, name: &ldquo;d&rdquo;},
+    {id: &ldquo;00&rdquo;, name: &ldquo;aa&rdquo;, parent: &ldquo;0&rdquo;},
+    {id: &ldquo;01&rdquo;, name: &ldquo;ab&rdquo;, parent: &ldquo;0&rdquo;},
+    {id: &ldquo;02&rdquo;, name: &ldquo;ac&rdquo;, parent: &ldquo;0&rdquo;},
+    {id: &ldquo;010&rdquo;, name: &ldquo;aba&rdquo;, parent: &ldquo;01&rdquo;},
+    {id: &ldquo;011&rdquo;, name: &ldquo;abb&rdquo;, parent: &ldquo;01&rdquo;},
+    {id: &ldquo;012&rdquo;, name: &ldquo;abc&rdquo;, parent: &ldquo;01&rdquo;}
+];
+转换代码如下：</p>
+
+<p>var map = {};
+var dest = [];</p>
+
+<p>source.forEach(function(it) {
+    map[it.id] = it;
+});</p>
+
+<p>source.forEach(function(it) {
+    if (！it.parent) {
+        //根节点
+        dest.push(it);
+    }
+    else {
+        //叶子节点
+        map[it.parent].children = map[it.parent].children || [];
+        map[it.parent].children.push(it);
+    }
+});
+转换之后的dest变成了这样：</p>
+
+<p>[
+    {
+        &ldquo;id&rdquo;: &ldquo;0&rdquo;,
+        &ldquo;name&rdquo;: &ldquo;a&rdquo;,
+        &ldquo;children&rdquo;: [
+            {
+                &ldquo;id&rdquo;: &ldquo;00&rdquo;,
+                &ldquo;name&rdquo;: &ldquo;aa&rdquo;,
+                &ldquo;parent&rdquo;: &ldquo;0&rdquo;
+            },
+            {
+                &ldquo;id&rdquo;: &ldquo;01&rdquo;,
+                &ldquo;name&rdquo;: &ldquo;ab&rdquo;,
+                &ldquo;parent&rdquo;: &ldquo;0&rdquo;,
+                &ldquo;children&rdquo;: [
+                    {
+                        &ldquo;id&rdquo;: &ldquo;013&rdquo;,
+                        &ldquo;name&rdquo;: &ldquo;abd&rdquo;,
+                        &ldquo;parent&rdquo;: &ldquo;01&rdquo;
+                    },
+                    {
+                        &ldquo;id&rdquo;: &ldquo;010&rdquo;,
+                        &ldquo;name&rdquo;: &ldquo;aba&rdquo;,
+                        &ldquo;parent&rdquo;: &ldquo;01&rdquo;
+                    },
+                    {
+                        &ldquo;id&rdquo;: &ldquo;011&rdquo;,
+                        &ldquo;name&rdquo;: &ldquo;abb&rdquo;,
+                        &ldquo;parent&rdquo;: &ldquo;01&rdquo;
+                    },
+                    {
+                        &ldquo;id&rdquo;: &ldquo;012&rdquo;,
+                        &ldquo;name&rdquo;: &ldquo;abc&rdquo;,
+                        &ldquo;parent&rdquo;: &ldquo;01&rdquo;
+                    }
+                ]
+            },
+            {
+                &ldquo;id&rdquo;: &ldquo;02&rdquo;,
+                &ldquo;name&rdquo;: &ldquo;ac&rdquo;,
+                &ldquo;parent&rdquo;: &ldquo;0&rdquo;
+            }
+        ]
+    },
+    {
+        &ldquo;id&rdquo;: &ldquo;1&rdquo;,
+        &ldquo;name&rdquo;: &ldquo;b&rdquo;
+    },
+    {
+        &ldquo;id&rdquo;: &ldquo;2&rdquo;,
+        &ldquo;name&rdquo;: &ldquo;c&rdquo;
+    },
+    {
+        &ldquo;id&rdquo;: &ldquo;3&rdquo;,
+        &ldquo;name&rdquo;: &ldquo;d&rdquo;
+    }
+]
+我们在界面绑定的时候仍然使用source，而在操作的时候使用dest。因为，绑定的时候，不必去经过深层检测，而操作的时候，需要有父子关系来使得操作便利。</p>
+
+<p>比如说，我们要做一个树状拓扑图，或者是MindMap这类产品，如果不作这样的考虑，很可能会直接把界面结构绑定到树状数据上，这时候效率相对会比较低些。</p>
+
+<p>但我们也可以作这种优化：</p>
+
+<p>同时保存扁平化的原始数据，也生成树状数据
+把展示结构绑定到扁平化的数据上
+每当结构变更的时候，在树状数据上更新，并且在数据模型内部计算出界面坐标
+展示结构的扁平数据因为跟树状数据是相同引用，也被更新了，也就引发界面刷新
+这时候，界面是单层刷新，无需跟踪层级数据，效率可以提高不少，尤其在层次较深的时候
+6. 小结</p>
+
+<p>MVVM存在的意义就是尽可能提高开发效率，只有很极端情况下值得去优化性能。如果你的场景中出现非常多的性能问题，很可能是不适合用这类框架的业务形态。</p>
+
+<p>总结一下我们的几种优化方式，他们的机制分别是：</p>
+
+<p>减少监控项
+加快变更检测速度
+主动设置索引
+缩小渲染的数据量
+数据的扁平化
+可以看到，我们所有的优化都是在数据层面，不必刻意去优化界面。如果你用了一个MVVM框架，却为它作了各种各样相当多的优化，那还不如不要用它，全手工写。</p>
+
+<p>针对其他MVVM框架，也大致可以用类似的几种方式，只是部分细节有差异，可以触类旁通。</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://satisfied1.github.io/post/angular%E7%9A%84%E9%97%AE%E9%A2%98/" title="angular的问题">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              angular的问题
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://satisfied1.github.io/post/angular%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%BA%8B%E4%BB%B6/" title="angular作用域与事件">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              angular作用域与事件
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/satisfied1.github.io\/';
+      var repo_id  = 'Satisfied1\/Satisfied1.github.io';
+    
+    </script>
+
+    <script src="https://satisfied1.github.io/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
